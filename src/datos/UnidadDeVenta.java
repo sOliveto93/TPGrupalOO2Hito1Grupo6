@@ -9,20 +9,20 @@ public abstract class UnidadDeVenta {
 	protected Staff encargado;
 	protected int superficie;
 	protected int codigoChico;
-	protected Festival nombreFestival;
+	protected Festival festival;
 	protected Set<Plato> listaDePlatos;
 	protected Set<Staff> personal;
 	
-	protected UnidadDeVenta() {
+	public UnidadDeVenta() {
 	}
 	public UnidadDeVenta(String nombreComercial, Staff encargado, int superficie, int codigoChico,
-			Festival nombreFestival, Set<Plato> listaDePlatos, Set<Staff> personal) {
+			Festival festival, Set<Plato> listaDePlatos, Set<Staff> personal) {
 		super();
 		this.nombreComercial = nombreComercial;
 		this.encargado = encargado;
 		this.superficie = superficie;
 		this.codigoChico = codigoChico;
-		this.nombreFestival = nombreFestival;
+		this.festival = festival;
 		this.listaDePlatos = listaDePlatos;
 		this.personal = personal;
 	}
@@ -59,12 +59,12 @@ public abstract class UnidadDeVenta {
 		this.codigoChico = codigoChico;
 	}
 
-	public Festival getNombreFestival() {
-		return nombreFestival;
+	public Festival getFestival() {
+		return festival;
 	}
 
-	public void setNombreFestival(Festival nombreFestival) {
-		this.nombreFestival = nombreFestival;
+	public void setFestival(Festival festival) {
+		this.festival = festival;
 	}
 
 	public Set<Plato> getListaDePlatos() {
@@ -94,7 +94,7 @@ public abstract class UnidadDeVenta {
 	@Override
 	public String toString() {
 		return "UnidadDeVenta [id=" + id + ", nombreComercial=" + nombreComercial + ", encargado=" + encargado
-				+ ", superficie=" + superficie + ", codigoChico=" + codigoChico + ", nombreFestival=" + nombreFestival
+				+ ", superficie=" + superficie + ", codigoChico=" + codigoChico + ", festival=" + festival
 				+ ", listaDePlatos=" + listaDePlatos + ", personal=" + personal + "]";
 	}
 	

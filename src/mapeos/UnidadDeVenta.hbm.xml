@@ -38,7 +38,7 @@
                      column="id_encargado"
                      not-null="true"/>
 
-        <many-to-one name="nombreFestival"
+        <many-to-one name="festival"
                      class="Festival"
                      column="id_festival"
                      not-null="true"/>

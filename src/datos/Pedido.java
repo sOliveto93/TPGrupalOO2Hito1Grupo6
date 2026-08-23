@@ -1,24 +1,25 @@
 package datos;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 public class Pedido {
 	
 	private long id;
     private LocalDate fecha;
     private UnidadDeVenta unidadDeVenta;
-    private DetallePedido detallePedido;
-    private Festival nombreFestival;
+    private Set<DetallePedido> detallePedido;
+
+
 
     public Pedido(LocalDate fecha, UnidadDeVenta unidadDeVenta,
-                  DetallePedido detallePedido, Festival nombreFestival) {
+                  Set<DetallePedido> detallePedido) {
         this.fecha = fecha;
         this.unidadDeVenta = unidadDeVenta;
         this.detallePedido = detallePedido;
-        this.nombreFestival = nombreFestival;
     }
 
-    protected Pedido() {
+    public Pedido() {
     }
     
     public long getId() {
@@ -45,27 +46,18 @@ public class Pedido {
         this.unidadDeVenta = unidadDeVenta;
     }
 
-    public DetallePedido getDetallePedido() {
+    public Set<DetallePedido> getDetallePedido() {
         return detallePedido;
     }
 
-    public void setDetallePedido(DetallePedido detallePedido) {
+    public void setDetallePedido(Set<DetallePedido> detallePedido) {
         this.detallePedido = detallePedido;
     }
 
-    public Festival getNombreFestival() {
-        return nombreFestival;
-    }
-
-    public void setNombreFestival(Festival nombreFestival) {
-        this.nombreFestival = nombreFestival;
-    }
 
     @Override
     public String toString() {
         return "Pedido [fecha=" + fecha
-                + ", unidadDeVenta=" + unidadDeVenta
-                + ", detallePedido=" + detallePedido
-                + ", nombreFestival=" + nombreFestival + "]";
+                + ", unidadDeVenta=" + unidadDeVenta+"]";
     }
 }

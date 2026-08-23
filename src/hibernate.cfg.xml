@@ -41,7 +41,7 @@
 
         <!-- ACTUALIZAR ESQUEMA -->
         <property name="hibernate.hbm2ddl.auto">
-            update
+            create-drop
         </property>
 
         <!-- MAPEOS -->
@@ -53,8 +53,6 @@
         <mapping resource="mapeos/Pedido.hbm.xml"/>
 
         <mapping resource="mapeos/UnidadDeVenta.hbm.xml"/>
-        <mapping resource="mapeos/FoodTruck.hbm.xml"/>
-        <mapping resource="mapeos/PuestoDesarmable.hbm.xml"/>
 
     </session-factory>
 

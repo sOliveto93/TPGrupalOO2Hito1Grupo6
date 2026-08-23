@@ -6,7 +6,7 @@ public class FoodTruck extends UnidadDeVenta{
 	private String patente;
 	private boolean usaElectricidad;
 	
-	protected FoodTruck(){}
+	public FoodTruck(){}
 	public FoodTruck(String nombreComercial, Staff encargado, int superficie, int codigoChico, Festival nombreFestival,
 			Set<Plato> listaDePlatos, Set<Staff> personal, String patente, boolean usaElectricidad) {
 		super(nombreComercial, encargado, superficie, codigoChico, nombreFestival, listaDePlatos, personal);

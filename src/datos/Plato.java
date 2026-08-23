@@ -5,8 +5,10 @@ public class Plato {
 	private String nombre;
 	private double precio;
 	private double costo;
-	
-	protected Plato() {};
+
+	protected Plato() {
+	};
+
 	public Plato(String nombre, double precio, double costo) {
 		super();
 		this.nombre = nombre;
@@ -18,7 +20,7 @@ public class Plato {
 		return id;
 	}
 
-	protected void setId(int id) {
+	protected void setId(long id) {
 		this.id = id;
 	}
 
@@ -47,8 +49,36 @@ public class Plato {
 	}
 
 	@Override
+	public int hashCode() {
+		int result = Long.hashCode(id);
+		result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
+		return result;
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+
+		if (obj == null)
+			return false;
+
+		if (!(obj instanceof Plato))
+			return false;
+
+		Plato plato = (Plato) obj;
+
+		if (id != plato.id)
+			return false;
+
+		if (nombre == null)
+			return plato.nombre == null;
+
+		return nombre.equals(plato.nombre);
+	}
+
+	@Override
 	public String toString() {
 		return "Plato [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", costo=" + costo + "]";
 	}
-	
+
 }

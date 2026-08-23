@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Cajero extends Staff{
 	private String turno;
 
-	protected Cajero() {
+	public Cajero() {
 	}
 	public Cajero(String nombre, String apellido, long dni, LocalDate fechaNacimiento, LocalDate fechaIngreso,
 			double sueldoBase, String turno) {

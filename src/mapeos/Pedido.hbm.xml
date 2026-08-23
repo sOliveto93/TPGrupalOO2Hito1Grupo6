@@ -8,33 +8,18 @@
 
     <class name="Pedido" table="pedido">
 
-        <id name="id"
-            column="id_pedido"
-            type="long">
-
+        <id name="id" column="id_pedido" type="long">
             <generator class="identity"/>
-
         </id>
 
-        <property name="fecha"
-                  column="fecha"
-                  type="java.time.LocalDate"
-                  not-null="true"/>
+        <property name="fecha" column="fecha" type="java.time.LocalDate" not-null="true"/>
 
-        <many-to-one name="unidadDeVenta"
-                     class="UnidadDeVenta"
-                     column="id_unidad_venta"
-                     not-null="true"/>
-
-        <many-to-one name="detallePedido"
-                     class="DetallePedido"
-                     column="id_detalle_pedido"
-                     not-null="true"/>
-
-        <many-to-one name="nombreFestival"
-                     class="Festival"
-                     column="id_festival"
-                     not-null="true"/>
+        <many-to-one name="unidadDeVenta" class="UnidadDeVenta" column="id_unidad_venta" not-null="true"/>
+        
+        <set name="detallePedido" table="detalle_pedido">
+            <key column="id_pedido"/>
+            <one-to-many class="DetallePedido"/>
+        </set>
 
     </class>
 

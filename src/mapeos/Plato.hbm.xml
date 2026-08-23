@@ -8,12 +8,8 @@
 
     <class name="Plato" table="plato">
 
-        <id name="id"
-            column="id_plato"
-            type="long">
-
+        <id name="id" column="id" type="long">
             <generator class="identity"/>
-
         </id>
 
         <property name="nombre"

@@ -6,7 +6,7 @@ public class Cocinero extends Staff {
 	private String especialidad;
 	private double plusCategoria;
 	
-	protected Cocinero() {}
+	public Cocinero() {}
 	
 	public Cocinero(String nombre, String apellido, long dni, LocalDate fechaNacimiento, LocalDate fechaIngreso,
 			double sueldoBase, String especialidad, double plusCategoria) {

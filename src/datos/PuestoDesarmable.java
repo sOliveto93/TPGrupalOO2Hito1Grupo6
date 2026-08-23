@@ -6,7 +6,7 @@ public class PuestoDesarmable extends UnidadDeVenta {
 	private int carpas;
 	private int tiempoMontaje;
 	
-	protected PuestoDesarmable() {};
+	public PuestoDesarmable() {};
 	public PuestoDesarmable(String nombreComercial, Staff encargado, int superficie, int codigoChico,
 			Festival nombreFestival, Set<Plato> listaDePlatos, Set<Staff> personal, int carpas, int tiempoMontaje) {
 		super(nombreComercial, encargado, superficie, codigoChico, nombreFestival, listaDePlatos, personal);

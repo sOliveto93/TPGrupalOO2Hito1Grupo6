@@ -12,7 +12,7 @@ public abstract class Staff {
 	protected LocalDate fechaIngreso;
 	protected double sueldoBase;
 	
-	protected Staff() {
+	public Staff() {
 	}
 	public Staff(String nombre, String apellido, long dni, LocalDate fechaNacimiento, LocalDate fechaIngreso,
 			double sueldoBase) {

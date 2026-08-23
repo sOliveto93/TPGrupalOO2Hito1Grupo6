@@ -8,12 +8,8 @@
 
     <class name="DetallePedido" table="detalle_pedido">
 
-        <id name="id"
-            column="id_detalle_pedido"
-            type="long">
-
+        <id name="id" column="id_detalle_pedido" type="long">
             <generator class="identity"/>
-
         </id>
 
         <many-to-one name="plato"
