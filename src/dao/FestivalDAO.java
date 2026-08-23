@@ -46,8 +46,7 @@ public class FestivalDAO {
 
             transaction = session.beginTransaction();
 
-            festival = session.createQuery("from Festival f where f.id = :id",Festival.class
-            ).setParameter("id", id).uniqueResult();
+            festival = (Festival)session.createQuery("from Festival f where f.id = :id").setParameter("id", id).uniqueResult();
 
             transaction.commit();
 
