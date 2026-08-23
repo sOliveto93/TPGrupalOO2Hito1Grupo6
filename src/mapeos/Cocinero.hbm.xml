@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="datos">
+
+    <joined-subclass name="Cocinero"
+                     extends="Staff"
+                     table="cocinero">
+
+        <key column="id_staff"/>
+
+        <property name="especialidad"
+                  column="especialidad"
+                  type="string"
+                  not-null="true"/>
+
+        <property name="plusCategoria"
+                  column="plus_categoria"
+                  type="double"
+                  not-null="true"/>
+
+    </joined-subclass>
+
+</hibernate-mapping>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="datos">
+
+    <class name="UnidadDeVenta"
+           table="unidad_de_venta"
+           abstract="true">
+
+        <id name="id"
+            column="id_unidad_venta"
+            type="long">
+
+            <generator class="identity"/>
+
+        </id>
+
+        <property name="nombreComercial"
+                  column="nombre_comercial"
+                  type="string"
+                  not-null="true"/>
+
+        <property name="superficie"
+                  column="superficie"
+                  type="integer"
+                  not-null="true"/>
+
+        <property name="codigoChico"
+                  column="codigo_chico"
+                  type="integer"
+                  not-null="true"/>
+
+        <many-to-one name="encargado"
+                     class="Staff"
+                     column="id_encargado"
+                     not-null="true"/>
+
+        <many-to-one name="nombreFestival"
+                     class="Festival"
+                     column="id_festival"
+                     not-null="true"/>
+
+        <set name="listaDePlatos"
+             table="unidad_venta_plato">
+
+            <key column="id_unidad_venta"/>
+
+            <many-to-many class="Plato"
+                          column="id_plato"/>
+
+        </set>
+
+        <set name="personal"
+             table="unidad_venta_staff">
+
+            <key column="id_unidad_venta"/>
+
+            <many-to-many class="Staff"
+                          column="id_staff"/>
+
+        </set>
+
+    </class>
+
+</hibernate-mapping>

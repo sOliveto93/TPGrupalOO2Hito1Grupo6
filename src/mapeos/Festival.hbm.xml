@@ -6,14 +6,14 @@
 
 <hibernate-mapping package="datos">
 
-    <class name="Staff"
-           table="staff"
-           abstract="true">
+    <class name="Festival" table="festival">
 
         <id name="id"
-            column="id_staff"
+            column="id_festival"
             type="long">
+
             <generator class="identity"/>
+
         </id>
 
         <property name="nombre"
@@ -21,24 +21,34 @@
                   type="string"
                   not-null="true"/>
 
-        <property name="apellido"
-                  column="apellido"
+        <property name="temporada"
+                  column="temporada"
                   type="string"
                   not-null="true"/>
 
-        <property name="dni"
-                  column="dni"
-                  type="long"
-                  not-null="true"/>
-
-        <property name="fechaNacimiento"
-                  column="fecha_nacimiento"
+        <property name="fechaInicio"
+                  column="fecha_inicio"
                   type="java.time.LocalDate"
                   not-null="true"/>
 
-        <property name="fechaIngreso"
-                  column="fecha_ingreso"
+        <property name="fechaFin"
+                  column="fecha_fin"
                   type="java.time.LocalDate"
+                  not-null="true"/>
+
+        <property name="costoSuperficie"
+                  column="costo_superficie"
+                  type="double"
+                  not-null="true"/>
+
+        <property name="costoMontaje"
+                  column="costo_montaje"
+                  type="double"
+                  not-null="true"/>
+
+        <property name="plusElectricidad"
+                  column="plus_electricidad"
+                  type="double"
                   not-null="true"/>
 
         <property name="sueldoBase"
