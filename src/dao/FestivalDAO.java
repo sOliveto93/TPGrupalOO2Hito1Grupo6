@@ -9,7 +9,7 @@ public class FestivalDAO {
 
     public long agregarFestival(Festival festival) {
 
-        Session session = HibernateUtil.getSesionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
 
         try {
@@ -39,7 +39,7 @@ public class FestivalDAO {
 
         Festival festival = null;
 
-        Session session = HibernateUtil.getSesionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
 
         try {

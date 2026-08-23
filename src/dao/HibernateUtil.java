@@ -12,7 +12,7 @@ public class HibernateUtil {
 	private static SessionFactory sessionFactory;
 	
 	
-	public static SessionFactory getSesionFactory() {
+	public static SessionFactory getSessionFactory() {
 		try {
 			if(sessionFactory == null) {
 				StandardServiceRegistry stantardRegistry = new StandardServiceRegistryBuilder()

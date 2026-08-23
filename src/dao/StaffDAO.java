@@ -1,0 +1,64 @@
+package dao;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import datos.Staff;
+
+public class StaffDAO {
+
+    public static Session session;
+    private Transaction tx;
+    private static StaffDAO instancia = null;
+
+    public StaffDAO() {
+    }
+
+    public static StaffDAO getInstance() {
+        if (instancia == null) {
+            instancia = new StaffDAO();
+            
+        }
+        return instancia;
+    }
+
+    protected void iniciaOperacion() throws HibernateException {
+        session = HibernateUtil.getSessionFactory().openSession();
+        tx = session.beginTransaction();
+    }
+
+    protected void manejaExcepcion(HibernateException he) throws HibernateException {
+        tx.rollback();
+        throw new HibernateException("ERROR en la capa de acceso a datos", he);
+    }
+
+    public Staff crear(Staff staff){
+        
+        try{
+            iniciaOperacion();
+           session.save(staff);
+           tx.commit();
+           return staff;
+        }
+        catch(HibernateException e){
+            manejaExcepcion(e);
+            return null;
+        }finally{
+            session.close();
+        }
+    }
+
+
+    public Staff traer(long id){
+        Staff staff =null;
+        try{
+            iniciaOperacion();
+            staff=(Staff) session.createQuery("from Staff s where s.id=:id")
+            .setParameter("id",id).uniqueResult();
+        }finally{
+            session.close();
+        }
+        return staff;
+    }
+}

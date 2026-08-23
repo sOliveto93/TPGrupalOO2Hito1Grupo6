@@ -11,7 +11,7 @@
            abstract="true">
 
         <id name="id"
-            column="id_staff"
+            column="id"
             type="long">
             <generator class="identity"/>
         </id>
@@ -45,6 +45,16 @@
                   column="sueldo_base"
                   type="double"
                   not-null="true"/>
+
+        <joined-subclass name="datos.Cajero" table="cajero">
+            <key column="id"/>
+            <property name="turno" column="turno" type="string"/>
+        </joined-subclass>
+        <joined-subclass name="datos.Cocinero" table="cocinero">
+            <key column="id"/>
+            <property name="especialidad" column="especialidad" type="string"/>
+            <property name="plusCategoria" column="plus_categoria" type="double"/>
+        </joined-subclass>
 
     </class>
 

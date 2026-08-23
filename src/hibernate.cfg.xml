@@ -18,11 +18,11 @@
         </property>
 
         <property name="hibernate.connection.username">
-            username
+            objetos2
         </property>
 
         <property name="hibernate.connection.password">
-            password
+            objetos2
         </property>
 
         <!-- DIALECTO -->
@@ -32,11 +32,11 @@
 
         <!-- SQL EN CONSOLA -->
         <property name="hibernate.show_sql">
-            true
+            false
         </property>
 
         <property name="hibernate.format_sql">
-            true
+            false
         </property>
 
         <!-- ACTUALIZAR ESQUEMA -->
@@ -46,9 +46,6 @@
 
         <!-- MAPEOS -->
         <mapping resource="mapeos/Staff.hbm.xml"/>
-        <mapping resource="mapeos/Cajero.hbm.xml"/>
-        <mapping resource="mapeos/Cocinero.hbm.xml"/>
-
         <mapping resource="mapeos/Festival.hbm.xml"/>
 
         <mapping resource="mapeos/Plato.hbm.xml"/>

@@ -28,7 +28,7 @@ public class Cocinero extends Staff {
 	}
 	@Override
 	public String toString() {
-		return "Cocinero [especialidad=" + especialidad + ", plusCategoria=" + plusCategoria + "]";
+		return "Cocinero ["+super.toString()+"especialidad=" + especialidad + ", plusCategoria=" + plusCategoria + "]";
 	}
 	
 }
