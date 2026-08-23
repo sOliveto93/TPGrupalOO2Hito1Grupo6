@@ -18,11 +18,11 @@
         </property>
 
         <property name="hibernate.connection.username">
-            root
+            usuario
         </property>
 
         <property name="hibernate.connection.password">
-            4869
+            password
         </property>
 
         <!-- DIALECTO -->
