@@ -18,11 +18,11 @@
         </property>
 
         <property name="hibernate.connection.username">
-            root
+            objetos2
         </property>
 
         <property name="hibernate.connection.password">
-            root
+            objetos2
         </property>
 
         <!-- DIALECTO -->
@@ -41,7 +41,7 @@
 
         <!-- ACTUALIZAR ESQUEMA -->
         <property name="hibernate.hbm2ddl.auto">
-            create-drop
+            update
         </property>
 
         <!-- MAPEOS -->

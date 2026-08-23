@@ -1,5 +1,7 @@
 package negocio;
 
+import java.util.List;
+
 import dao.StaffDAO;
 import datos.Staff;
 
@@ -15,4 +17,14 @@ public class StaffABM {
     public Staff traerStaff(long id){
         return dao.traer(id);
     }
+
+    public List<Staff> traerTodosStaff(){
+        return dao.traerTodos();
+
+
+
+    }
+
 }
+
+

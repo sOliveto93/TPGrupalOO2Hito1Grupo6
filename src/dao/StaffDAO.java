@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -61,4 +64,27 @@ public class StaffDAO {
         }
         return staff;
     }
+
+    public List<Staff> traerTodos(){
+        List<Staff> lista= new ArrayList<>();
+        try{
+
+            iniciaOperacion();
+            lista= (List<Staff>)session.createQuery("from Staff").list();
+
+        }finally{
+            session.close();
+        }
+        return lista;
+
+
+
+        
+
+    }
+
+
+
 }
+
+

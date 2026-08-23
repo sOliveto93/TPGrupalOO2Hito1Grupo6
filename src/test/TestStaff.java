@@ -21,6 +21,11 @@ public class TestStaff {
     
         System.out.println(staffABM.traerStaff(1));
         System.out.println(staffABM.traerStaff(2));
+
+
+        System.out.println(staffABM.traerTodosStaff());
+
+
     }
 
 }
