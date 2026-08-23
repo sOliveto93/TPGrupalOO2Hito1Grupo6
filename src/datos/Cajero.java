@@ -1,0 +1,29 @@
+package datos;
+
+import java.time.LocalDate;
+
+public class Cajero extends Staff{
+	private String turno;
+
+	protected Cajero() {
+	}
+	public Cajero(String nombre, String apellido, long dni, LocalDate fechaNacimiento, LocalDate fechaIngreso,
+			double sueldoBase, String turno) {
+		super(nombre, apellido, dni, fechaNacimiento, fechaIngreso, sueldoBase);
+		this.turno = turno;
+	}
+
+	public String getTurno() {
+		return turno;
+	}
+
+	public void setTurno(String turno) {
+		this.turno = turno;
+	}
+
+	@Override
+	public String toString() {
+	    return "Cajero [" + super.toString() + ", turno=" + turno + "]";
+	}
+	
+}
