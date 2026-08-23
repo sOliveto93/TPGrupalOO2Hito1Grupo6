@@ -1,7 +1,7 @@
 # Compilación
 target/
 *.class
-
+bin/
 
 # =========================================================
 # Eclipse
@@ -40,3 +40,4 @@ target/
 mvnw
 mvnw.cmd
 .mvn/
+
