@@ -48,12 +48,12 @@
 
         <joined-subclass name="datos.Cajero" table="cajero">
             <key column="id"/>
-            <property name="turno" column="turno" type="string"/>
+            <property name="turno" column="turno" type="string" not-null="true"/>
         </joined-subclass>
         <joined-subclass name="datos.Cocinero" table="cocinero">
             <key column="id"/>
-            <property name="especialidad" column="especialidad" type="string"/>
-            <property name="plusCategoria" column="plus_categoria" type="double"/>
+            <property name="especialidad" column="especialidad" type="string" not-null="true"/>
+            <property name="plusCategoria" column="plus_categoria" type="double" not-null="true"/>
         </joined-subclass>
 
     </class>

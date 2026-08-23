@@ -11,7 +11,7 @@
            abstract="true">
 
         <id name="id"
-            column="id_unidad_venta"
+            column="id"
             type="long">
 
             <generator class="identity"/>
@@ -62,6 +62,17 @@
                           column="id_staff"/>
 
         </set>
+
+         <joined-subclass name="datos.FoodTruck" table="food_truck">
+            <key column="id"/>
+            <property name="patente" column="patente" type="string" not-null="true"/>
+            <property name="usaElectricidad" column="usa_electricidad" type="boolean" not-null="true"/>
+        </joined-subclass>
+        <joined-subclass name="datos.PuestoDesarmable" table="puesto_desarmable">
+            <key column="id"/>
+            <property name="carpas" column="carpas" type="int" not-null="true"/>
+            <property name="tiempoMontaje" column="tiempo_montaje" type="int" not-null="true"/>
+        </joined-subclass>
 
     </class>
 
