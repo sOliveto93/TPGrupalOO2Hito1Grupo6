@@ -1,0 +1,17 @@
+<hibernate-mapping>
+
+	<class name="datos.Staff" table="staff">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<!-- Atributos - Columnas -->
+		<property name="apellido" column="apellido" type="string"
+			not-null="true" />
+		<property name="nombre" column="nombre" type="string" not-null="true" />
+		<property name="dni" column="dni" type="integer" unique="true"
+			not-null="true" />
+		<property name="fechaNacimiento" column="fechaNacimiento"
+			type="java.time.LocalDate" not-null="true" />
+		<property name="baja" column="baja" type="boolean" not-null="true" />
+	</class>
+</hibernate-mapping>

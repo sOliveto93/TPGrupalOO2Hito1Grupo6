@@ -1,0 +1,42 @@
+# Compilación
+target/
+*.class
+
+
+# =========================================================
+# Eclipse
+# =========================================================
+
+.classpath
+.project
+.settings/
+.factorypath
+.loadpath
+.buildpath
+
+
+# =========================================================
+# Visual Studio Code
+# =========================================================
+
+.vscode/
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+
+*.log
+logs/
+
+
+target/
+.classpath
+.project
+.settings/
+.idea/
+.vscode/
+
+mvnw
+mvnw.cmd
+.mvn/
