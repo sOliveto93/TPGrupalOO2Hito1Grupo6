@@ -15,17 +15,25 @@ public class TestStaff {
         //String nombre, String apellido, long dni, LocalDate fechaNacimiento, LocalDate fechaIngreso,
 			//double sueldoBase, String especialidad, double plusCategoria
         Cocinero cocinero= new Cocinero("patricio", "no recuerdo", 88991122,LocalDate.of(2002, 5, 13),LocalDate.now(),300,"sushi",65);
-        
-        staffABM.crearStaff(cocinero);
-        staffABM.crearStaff(cajero);
+        Cajero cajero2 =new Cajero("Lourdes","Crespo",45495509,LocalDate.of(2003,12,22),LocalDate.of(2024,11,15),400,"noche");
+
+
+        //staffABM.crearStaff(cocinero);
+        //staffABM.crearStaff(cajero);
+        //staffABM.crearStaff(cajero2);
     
         System.out.println(staffABM.traerStaff(1));
         System.out.println(staffABM.traerStaff(2));
+        System.out.println(staffABM.traerStaff(3));
 
-
+        // TRAER A TODO EL PERSONAL STAFF
         System.out.println(staffABM.traerTodosStaff());
 
+        // TRAER TODOS LOS CAJEROS
+        System.out.println(staffABM.traerTodosCajeros());
 
+        //TRAER A TODOS LOS COCINEROS
+        System.out.println(staffABM.traerTodosCocineros());
     }
 
 }

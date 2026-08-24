@@ -7,7 +7,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import datos.Cajero;
 import datos.Staff;
+import datos.Cocinero;
 
 public class StaffDAO {
 
@@ -83,7 +85,50 @@ public class StaffDAO {
 
     }
 
+    public List<Cajero> traerCajeros() {
 
+        List<Cajero> lista = new ArrayList<>();
+
+        try {
+            iniciaOperacion();
+
+            List resultado = session.createQuery("from Cajero").list();
+
+            for (Object objeto : resultado) {
+                lista.add((Cajero) objeto);
+            }
+
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return lista;
+    }
+
+    public List<Cocinero> traerCocineros() {
+
+        List<Cocinero> lista = new ArrayList<>();
+
+        try {
+            iniciaOperacion();
+
+            List resultado = session.createQuery("from Cocinero").list();
+
+            for (Object objeto : resultado) {
+                lista.add((Cocinero) objeto);
+            }
+
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return lista;
+    }
+    
 
 }
 

@@ -18,11 +18,11 @@
         </property>
 
         <property name="hibernate.connection.username">
-            objetos2
+            root
         </property>
 
         <property name="hibernate.connection.password">
-            objetos2
+            root
         </property>
 
         <!-- DIALECTO -->

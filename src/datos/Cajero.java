@@ -23,7 +23,7 @@ public class Cajero extends Staff{
 
 	@Override
 	public String toString() {
-	    return "Cajero [" + super.toString() + ", turno=" + turno + "]";
+	    return "Cajero [" + super.toString() + ", turno=" + turno + "]\n";
 	}
 	
 }
