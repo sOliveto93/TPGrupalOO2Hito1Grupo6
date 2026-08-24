@@ -48,6 +48,7 @@ public class Plato {
 		this.costo = costo;
 	}
 
+	//revisar esto.. 
 	@Override
 	public int hashCode() {
 		int result = Long.hashCode(id);
