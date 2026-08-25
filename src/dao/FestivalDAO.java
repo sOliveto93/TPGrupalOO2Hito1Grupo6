@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -106,6 +107,47 @@ public class FestivalDAO {
         }
 
         return festivales;
+    }
+   
+    
+    public List<Festival> TraerFestivalesPorTemporada(String temporada)throws Exception {
+    	
+    	 List<Festival> lista = new ArrayList<>();
+
+         Session session = HibernateUtil.getSessionFactory().openSession();
+
+         Transaction transaction = null;
+
+    	
+    	try {
+    		
+    		transaction = session.beginTransaction();
+    		
+    		lista = session.createQuery
+    				("from Festival f where f.temporada = :temporada", Festival.class)
+    				.setParameter("temporada", temporada)
+    				.getResultList();
+
+    		transaction.commit();
+    		
+    		
+    	}catch (Exception e) {
+    		
+    		if (transaction != null) {
+
+                transaction.rollback();
+    		}
+    		
+    		  e.printStackTrace();
+
+              throw new Exception("Error al traer los festivales");
+    		
+    	}finally {session.close();}
+    	
+    	
+    	
+    	System.out.println("\n---FESTIVALES DE LA TEMPORADA " + temporada.toUpperCase() + "---");
+    	return lista;
     }
     
     

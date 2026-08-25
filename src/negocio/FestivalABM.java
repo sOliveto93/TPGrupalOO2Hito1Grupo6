@@ -47,4 +47,19 @@ public class FestivalABM {
         return festivales;
     }
     
+    
+    public List<Festival> traerFestivalesPorTemporada(String temporada){
+    	List<Festival> festivales = null;
+    	
+    	try {
+    		
+    		festivales = festivalDAO.TraerFestivalesPorTemporada(temporada);
+    		
+    	}catch(Exception e) {
+    		e.getMessage();
+    	}
+    	
+    	return festivales;
+    }
+    
 }
