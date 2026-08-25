@@ -43,6 +43,20 @@ public class TestStaff {
 
         //TRAER A STAFF POR DNI
         System.out.println(staffABM.traerStaffPorDni(45495509));
+    
+        //TRAER A STAFFS POR APELLIDO
+        System.out.println(staffABM.traerStaffPorApellido("Crespo"));
+
+        //TRAER A STAFF CON SUELDO MAYOR A x VALOR
+        System.out.println(staffABM.traerStaffSueldoMayorA(270));
+    
+        //TRAER A STAFF ORDENADO POR APELLIDO
+        System.out.println(staffABM.traerStaffOrdenadoPorApellido());
+
+        //TRAER A STAFF INGRESADO DESPUES DE UNA FECHA
+        System.out.println(staffABM.traerStaffIngresadoDespuesDe(LocalDate.of(2024,7,2)));
+
+   
     }
 
 }
