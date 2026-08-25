@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -65,5 +67,47 @@ public class FestivalDAO {
 
         return festival;
     }
+    
+    
+    
+    
+    public List<Festival> traerTodos() throws Exception {
+
+        List<Festival> festivales = null;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        Transaction transaction = null;
+
+        try {
+
+            transaction = session.beginTransaction();
+
+            festivales = session.createQuery("from Festival", Festival.class).getResultList();
+
+            transaction.commit();
+
+        } catch (Exception e) {
+
+            if (transaction != null) {
+
+                transaction.rollback();
+
+            }
+
+            e.printStackTrace();
+
+            throw new Exception("Error al traer los festivales");
+
+        } finally {
+
+            session.close();
+
+        }
+
+        return festivales;
+    }
+    
+    
     
 }

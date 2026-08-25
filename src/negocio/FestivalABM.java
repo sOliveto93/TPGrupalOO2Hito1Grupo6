@@ -1,5 +1,6 @@
 package negocio;
 
+import java.util.List;
 
 import dao.FestivalDAO;
 import datos.Festival;
@@ -27,5 +28,23 @@ public class FestivalABM {
 		}
 		return festival;
 	}
+	
+	
+    public List<Festival> traerTodos() {
+
+        List<Festival> festivales = null;
+
+        try {
+
+            festivales = festivalDAO.traerTodos();
+
+        } catch(Exception e) {
+
+            e.getMessage();
+
+        }
+
+        return festivales;
+    }
     
 }
