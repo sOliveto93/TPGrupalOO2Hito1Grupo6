@@ -14,7 +14,10 @@ public class StaffABM {
 
     public StaffABM(){};
 
-    public Staff crearStaff(Staff staff){
+    public Staff crearStaff(Staff staff) throws Exception{
+        if(traerStaffPorDni(staff.getDni()) != null){
+            throw new Exception("No se puede crear staff con el mismo dni");
+        }
         return dao.crear(staff);
     }
     public Staff traerStaff(long id){
