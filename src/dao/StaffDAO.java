@@ -128,6 +128,38 @@ public class StaffDAO {
 
         return lista;
     }
+
+    public List<Cajero> traerCajerosPorTurno(String turno) {
+
+        List<Cajero> lista = new ArrayList<>();
+
+        try {
+            iniciaOperacion();
+
+            lista = (List<Cajero>) session
+                    .createQuery("from Cajero c where c.turno = :turno")
+                    .setParameter("turno", turno)
+                    .list();
+
+        } finally {
+            session.close();
+        }
+
+        return lista;
+    }
+
+    public Staff traerStaffPorDni(long dni){
+        Staff staff=null;
+        try{
+            iniciaOperacion();
+            staff=(Staff) session.createQuery("from Staff s where s.dni = :dni").setParameter("dni", dni).uniqueResult();
+        }finally{
+            session.close();
+        }
+
+        return staff;
+
+    }
     
 
 }

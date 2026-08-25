@@ -34,6 +34,15 @@ public class TestStaff {
 
         //TRAER A TODOS LOS COCINEROS
         System.out.println(staffABM.traerTodosCocineros());
+
+        //TRAER A TODOS LOS CAJEROS DE TURNO NOCHE
+        System.out.println(staffABM.traerCajerosPorTurno("noche"));
+
+        //TRAER A TODOS LOS CAJEROS DE TURNO MAñANA
+        System.out.println(staffABM.traerCajerosPorTurno("mañana"));
+
+        //TRAER A STAFF POR DNI
+        System.out.println(staffABM.traerStaffPorDni(45495509));
     }
 
 }

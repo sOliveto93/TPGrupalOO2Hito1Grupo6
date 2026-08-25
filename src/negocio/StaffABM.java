@@ -24,8 +24,6 @@ public class StaffABM {
         System.out.println("-------LISTA DE TODO EL PERSONAL STAFF----------");
         return dao.traerTodos();
 
-
-
     }
 
     public List<Cajero> traerTodosCajeros(){
@@ -36,6 +34,17 @@ public class StaffABM {
     public List<Cocinero> traerTodosCocineros(){
         System.out.println("------------LISTA DE TODOS LOS COCINEROS--------");
         return dao.traerCocineros();
+
+    }
+
+    public List<Cajero> traerCajerosPorTurno(String turno){
+        System.out.println("--------------LISTA DE CAJEROS POR TURNO---------");
+        return dao.traerCajerosPorTurno(turno);
+    }
+
+    public Staff traerStaffPorDni(long dni){
+    System.out.println("---BUSCANDO A STAFF CON DNI:"+dni+" ----");
+    return dao.traerStaffPorDni(dni);
 
     }
 
