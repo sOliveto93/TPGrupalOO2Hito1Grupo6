@@ -1,5 +1,6 @@
 package dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -137,5 +138,36 @@ public class FestivalDAO {
 
 		return festivales;
 	}
+	
+	
+	public List<Festival> traerFestivalesEntreFechas(LocalDate fechaInicio, LocalDate fechaFin) throws Exception {
 
+		List<Festival> festivales = null;
+
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
+
+		try {
+
+			transaction = session.beginTransaction();
+
+			festivales = (List<Festival>) session.createQuery("from Festival f where f.fechaInicio >= :fechaInicio and f.fechaFin <= :fechaFin").setParameter("fechaInicio", fechaInicio).setParameter("fechaFin", fechaFin).getResultList();
+
+			transaction.commit();
+
+		} catch (Exception e) {
+
+			if (transaction != null) {
+				transaction.rollback();
+			}
+
+			e.printStackTrace();
+			throw new Exception("Error al traer los festivales");
+
+		} finally {
+			session.close();
+		}
+
+		return festivales;
+	}
 }

@@ -14,16 +14,16 @@ public class TestFestivalPato {
 		Festival festival1 = new Festival("la fiesta del dulce de leche", "primavera", LocalDate.of(2026, 9, 21),
 				LocalDate.of(2026, 9, 23), 650, 300, 50, 100);
 		
-		Festival festival2 = new Festival("Festival de la Pizza", "verano", LocalDate.of(2026, 1, 10),
+		Festival festival2 = new Festival("Oktoberfest", "primavera", LocalDate.of(2026, 1, 10),
 				LocalDate.of(2026, 1, 12), 700, 350, 60, 120);
 
-		Festival festival3 = new Festival("Sabores Criollos", "otoño", LocalDate.of(2026, 4, 15),
+		Festival festival3 = new Festival("Harvest Festival", "otoño", LocalDate.of(2026, 4, 15),
 				LocalDate.of(2026, 4, 18), 500, 250, 40, 90);
 
 		Festival festival4 = new Festival("Festival del Chocolate", "invierno", LocalDate.of(2026, 7, 5),
 				LocalDate.of(2026, 7, 8), 800, 400, 70, 130);
 
-		Festival festival5 = new Festival("Sabores del Mar", "verano", LocalDate.of(2026, 2, 14),
+		Festival festival5 = new Festival("Festival Plaza", "verano", LocalDate.of(2026, 2, 14),
 				LocalDate.of(2026, 2, 17), 750, 320, 65, 110);
 
 		Festival festival6 = new Festival("Festival Vegano", "primavera", LocalDate.of(2026, 10, 10),
@@ -55,13 +55,16 @@ public class TestFestivalPato {
 
 		List<Festival> festivales = festivalABM.traerTodos();
 
+		//Todos los festivales
 		System.out.println("Festivales registrados: " + festivales.size());
 		for (Festival festival : festivales) {
 			System.out.println(festival);
 		}
+		
+		//Festivales por temporada
 		try {
 		List<Festival> festivalesTemporada = festivalABM.traerFestivalesPorTemporada("Verano");
-		System.out.println("Festivales registrados: " + festivalesTemporada.size());
+		System.out.println("Festivales registrados por temporada: " + festivalesTemporada.size());
 		for (Festival festival : festivalesTemporada) {
 			System.out.println(festival);
 		}
@@ -69,7 +72,27 @@ public class TestFestivalPato {
 		catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
+		//Festivales entre fechas
+		try {
+		List<Festival> festivalesEntreFechas = festivalABM.traerFestivalesEntreFechas(LocalDate.of(2026, 6, 1), LocalDate.of(2026, 9, 30));
+
+		System.out.println("Festivales registrados entre fechas: " + festivalesEntreFechas.size());
+		for (Festival festival : festivalesEntreFechas) {
+			System.out.println(festival);
+		}
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
 		}
 		
 		
 }
+
+
+}
+
+
+
+		
+		
+

@@ -1,5 +1,6 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import dao.FestivalDAO;
@@ -50,7 +51,7 @@ public class FestivalABM {
             throws Exception {
 
         if (temporada == null) {
-            throw new Exception("La temporada no puede ser null");
+            throw new Exception("La temporada no puede ser nula");
         }
 
         switch (temporada) {
@@ -66,4 +67,18 @@ public class FestivalABM {
 
         return festivalDAO.traerFestivalesPorTemporada(temporada);
     }
+    public List<Festival> traerFestivalesEntreFechas(LocalDate fechaInicio, LocalDate fechaFin)
+            throws Exception {
+    	
+    	if(fechaInicio==null || fechaFin==null) {
+    		throw new IllegalArgumentException("Error: fecha de inicio o fin nula");
+    	}
+    	if(fechaInicio.isAfter(fechaFin))
+    	{
+    		throw new IllegalArgumentException("Error: fecha de inicio posterior a la fecha de finalizacion");
+    	}
+    	
+        return festivalDAO.traerFestivalesEntreFechas(fechaInicio, fechaFin);
+    }
+    
 }
