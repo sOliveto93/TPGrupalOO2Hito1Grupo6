@@ -72,7 +72,7 @@ public class StaffDAO {
         try{
 
             iniciaOperacion();
-            lista= (List<Staff>)session.createQuery("from Staff").list();
+            lista=(List<Staff>)session.createQuery("from Staff").list();
 
         }finally{
             session.close();
@@ -128,8 +128,7 @@ public class StaffDAO {
 
         return lista;
     }
-    
-
+ 
 }
 
 

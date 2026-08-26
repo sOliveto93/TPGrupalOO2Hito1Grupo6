@@ -15,7 +15,7 @@ public class Main {
         festivalABM.agregarFestival(festival1);
         List<Festival> festivales = festivalABM.traerTodos();
         
-        System.out.println("Festivales registrados: "+festivales.size());
+        System.out.println("Festivales registrados: " + festivales.size());
         for (Festival festival : festivales) {
             System.out.println(festival);
         }

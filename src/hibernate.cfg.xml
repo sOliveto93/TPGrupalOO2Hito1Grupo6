@@ -17,11 +17,11 @@
         </property>
 
         <property name="hibernate.connection.username">
-            objetos2
+            root
         </property>
 
         <property name="hibernate.connection.password">
-            objetos2
+            4869
         </property>
 
     
@@ -38,7 +38,7 @@
         </property>
 
         <property name="hibernate.hbm2ddl.auto">
-            update
+            create-drop
         </property>
 
         <mapping resource="mapeos/Staff.hbm.xml"/>

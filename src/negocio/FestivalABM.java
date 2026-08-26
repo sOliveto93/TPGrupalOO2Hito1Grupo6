@@ -46,5 +46,24 @@ public class FestivalABM {
 
         return festivales;
     }
-    
+    public List<Festival> traerFestivalesPorTemporada(String temporada)
+            throws Exception {
+
+        if (temporada == null) {
+            throw new Exception("La temporada no puede ser null");
+        }
+
+        switch (temporada) {
+            case "Primavera":
+            case "Verano":
+            case "Otoño":
+            case "Invierno":
+                break;
+
+            default:
+                throw new Exception("Temporada inválida: " + temporada);
+        }
+
+        return festivalDAO.traerFestivalesPorTemporada(temporada);
+    }
 }

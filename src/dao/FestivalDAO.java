@@ -9,105 +9,133 @@ import datos.Festival;
 
 public class FestivalDAO {
 
-    public long agregarFestival(Festival festival) {
+	public long agregarFestival(Festival festival) {
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
 
-        try {
-            transaction = session.beginTransaction();
+		try {
+			transaction = session.beginTransaction();
 
-            long id = (long) session.save(festival);
+			long id = (long) session.save(festival);
 
-            transaction.commit();
+			transaction.commit();
 
-            return id;
+			return id;
 
-        } catch (Exception e) {
+		} catch (Exception e) {
 
-            if (transaction != null) {
-                transaction.rollback();
-            }
+			if (transaction != null) {
+				transaction.rollback();
+			}
 
-            e.printStackTrace();
-            return -1;
+			e.printStackTrace();
+			return -1;
 
-        } finally {
-            session.close();
-        }
-    }  
-    
-    public Festival traer(long id) throws Exception {
+		} finally {
+			session.close();
+		}
+	}
 
-        Festival festival = null;
+	public Festival traer(long id) throws Exception {
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = null;
+		Festival festival = null;
 
-        try {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
 
-            transaction = session.beginTransaction();
+		try {
 
-            festival = (Festival)session.createQuery("from Festival f where f.id = :id").setParameter("id", id).uniqueResult();
+			transaction = session.beginTransaction();
 
-            transaction.commit();
+			festival = (Festival) session.createQuery("from Festival f where f.id = :id").setParameter("id", id)
+					.uniqueResult();
 
-        } catch (Exception e) {
+			transaction.commit();
 
-            if (transaction != null) {
-                transaction.rollback();
-            }
+		} catch (Exception e) {
 
-            e.printStackTrace();
-            throw new Exception("Error al traer el festival");
+			if (transaction != null) {
+				transaction.rollback();
+			}
 
-        } finally {
-            session.close();
-        }
+			e.printStackTrace();
+			throw new Exception("Error al traer el festival");
 
-        return festival;
-    }
-    
-    
-    
-    
-    public List<Festival> traerTodos() throws Exception {
+		} finally {
+			session.close();
+		}
 
-        List<Festival> festivales = null;
+		return festival;
+	}
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
+	public List<Festival> traerTodos() throws Exception {
 
-        Transaction transaction = null;
+		List<Festival> festivales = null;
 
-        try {
+		Session session = HibernateUtil.getSessionFactory().openSession();
 
-            transaction = session.beginTransaction();
+		Transaction transaction = null;
 
-            festivales = session.createQuery("from Festival", Festival.class).getResultList();
+		try {
 
-            transaction.commit();
+			transaction = session.beginTransaction();
 
-        } catch (Exception e) {
+			festivales = session.createQuery("from Festival", Festival.class).getResultList();
 
-            if (transaction != null) {
+			transaction.commit();
 
-                transaction.rollback();
+		} catch (Exception e) {
 
-            }
+			if (transaction != null) {
 
-            e.printStackTrace();
+				transaction.rollback();
 
-            throw new Exception("Error al traer los festivales");
+			}
 
-        } finally {
+			e.printStackTrace();
 
-            session.close();
+			throw new Exception("Error al traer los festivales");
 
-        }
+		} finally {
 
-        return festivales;
-    }
-    
-    
-    
+			session.close();
+
+		}
+
+		return festivales;
+	}
+
+	public List<Festival> traerFestivalesPorTemporada(String temporada) throws Exception {
+
+		List<Festival> festivales = null;
+
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
+
+		try {
+
+			transaction = session.beginTransaction();
+
+			festivales = (List<Festival>) session.createQuery("from Festival f where f.temporada = :temporada")
+					.setParameter("temporada", temporada).getResultList();
+
+			transaction.commit();
+
+		} catch (Exception e) {
+
+			if (transaction != null) {
+				transaction.rollback();
+			}
+
+			e.printStackTrace();
+			throw new Exception("Error al traer los festivales");
+
+		} finally {
+			session.close();
+		}
+
+		return festivales;
+	}
+
 }
