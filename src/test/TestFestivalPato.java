@@ -85,6 +85,38 @@ public class TestFestivalPato {
 			System.out.println(e.getMessage());
 		}
 		
+		  try {
+		        double costoSuperficie = 300;
+		        String condicion = "mayor";
+
+		        List<Festival> festivalesPorCosto =
+		                festivalABM.traerFestivalesPorCostoSuperficie(
+		                        costoSuperficie,
+		                        condicion
+		                );
+
+		        if (festivalesPorCosto.isEmpty()) {
+		            System.out.println("No se encontraron festivales.");
+		        } else {
+		            System.out.println("Festivales encontrados:");
+
+		            for (Festival festival : festivalesPorCosto) {
+		                System.out.println(
+		                        festival.getNombre()
+		                        + " - Costo de superficie: $"
+		                        + festival.getCostoSuperficie()
+		                );
+		            }
+		        }
+
+		    } catch (IllegalArgumentException e) {
+		        System.out.println("Dato inválido: " + e.getMessage());
+
+		    } catch (Exception e) {
+		        System.out.println("Error al consultar los festivales: "
+		                + e.getMessage());
+		    }
+		
 		
 }
 

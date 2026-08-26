@@ -81,4 +81,17 @@ public class FestivalABM {
         return festivalDAO.traerFestivalesEntreFechas(fechaInicio, fechaFin);
     }
     
+    public List<Festival> traerFestivalesPorCostoSuperficie(double costoSuperficie, String condicion) throws Exception{
+    	
+    	if(costoSuperficie<=0) {
+    		throw new IllegalArgumentException("Error: el costo de superficie es menor o igual a 0");
+    	} else if (condicion==null) {
+    		throw new IllegalArgumentException("Error: la condicion no puede ser nula");
+    	} else if (!"mayor".equalsIgnoreCase(condicion)
+    	        && !"menor".equalsIgnoreCase(condicion)) {
+    	    throw new IllegalArgumentException("La condición debe ser 'mayor' o 'menor'");
+    	}
+    	
+    	return festivalDAO.traerFestivalesPorCostoSuperficie(costoSuperficie, condicion);
+    }
 }
