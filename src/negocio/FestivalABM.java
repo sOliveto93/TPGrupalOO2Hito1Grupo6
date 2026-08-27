@@ -55,6 +55,7 @@ public class FestivalABM {
         }
 		temporada=temporada.toLowerCase();
 
+		//esto se soluciona con un enum.. asi evitamos string magicos
         switch (temporada) {
             case "primavera":
             case "verano":

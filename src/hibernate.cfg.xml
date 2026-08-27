@@ -39,7 +39,7 @@
         </property>
 
         <property name="hibernate.hbm2ddl.auto">
-            create-drop
+            update
         </property>
 
         <mapping resource="mapeos/Staff.hbm.xml"/>
