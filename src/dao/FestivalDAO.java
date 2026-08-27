@@ -10,31 +10,55 @@ import datos.Festival;
 
 public class FestivalDAO {
 
+	private Session session;
+	private Transaction tx;
+
+	private static FestivalDAO instancia = null;
+
+	public FestivalDAO() {
+	}
+
+	protected void iniciarOperacion() {
+		session = HibernateUtil.getSessionFactory().openSession();
+		tx = session.beginTransaction();
+	}
+
+	public static FestivalDAO getInstance() {
+
+		if (instancia == null) {
+			instancia = new FestivalDAO();
+		}
+
+		return instancia;
+	}
+
 	public long agregarFestival(Festival festival) {
 
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = null;
-
 		try {
-			transaction = session.beginTransaction();
+
+			iniciarOperacion();
 
 			long id = (long) session.save(festival);
 
-			transaction.commit();
+			tx.commit();
 
 			return id;
 
 		} catch (Exception e) {
 
-			if (transaction != null) {
-				transaction.rollback();
+			if (tx != null) {
+				tx.rollback();
 			}
 
 			e.printStackTrace();
+
 			return -1;
 
 		} finally {
-			session.close();
+
+			if (session != null) {
+				session.close();
+			}
 		}
 	}
 
@@ -42,29 +66,30 @@ public class FestivalDAO {
 
 		Festival festival = null;
 
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = null;
-
 		try {
 
-			transaction = session.beginTransaction();
+			iniciarOperacion();
 
 			festival = (Festival) session.createQuery("from Festival f where f.id = :id").setParameter("id", id)
 					.uniqueResult();
 
-			transaction.commit();
+			tx.commit();
 
 		} catch (Exception e) {
 
-			if (transaction != null) {
-				transaction.rollback();
+			if (tx != null) {
+				tx.rollback();
 			}
 
 			e.printStackTrace();
-			throw new Exception("Error al traer el festival");
+
+			throw new Exception("Error al traer el festival", e);
 
 		} finally {
-			session.close();
+
+			if (session != null) {
+				session.close();
+			}
 		}
 
 		return festival;
@@ -74,34 +99,29 @@ public class FestivalDAO {
 
 		List<Festival> festivales = null;
 
-		Session session = HibernateUtil.getSessionFactory().openSession();
-
-		Transaction transaction = null;
-
 		try {
 
-			transaction = session.beginTransaction();
+			iniciarOperacion();
 
-			festivales = session.createQuery("from Festival", Festival.class).getResultList();
+			festivales = (List<Festival>) session.createQuery("from Festival").getResultList();
 
-			transaction.commit();
+			tx.commit();
 
 		} catch (Exception e) {
 
-			if (transaction != null) {
-
-				transaction.rollback();
-
+			if (tx != null) {
+				tx.rollback();
 			}
 
 			e.printStackTrace();
 
-			throw new Exception("Error al traer los festivales");
+			throw new Exception("Error al traer los festivales", e);
 
 		} finally {
 
-			session.close();
-
+			if (session != null) {
+				session.close();
+			}
 		}
 
 		return festivales;
@@ -111,29 +131,30 @@ public class FestivalDAO {
 
 		List<Festival> festivales = null;
 
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = null;
-
 		try {
 
-			transaction = session.beginTransaction();
+			iniciarOperacion();
 
 			festivales = (List<Festival>) session.createQuery("from Festival f where f.temporada = :temporada")
 					.setParameter("temporada", temporada).getResultList();
-			
-			transaction.commit();
+
+			tx.commit();
 
 		} catch (Exception e) {
 
-			if (transaction != null) {
-				transaction.rollback();
+			if (tx != null) {
+				tx.rollback();
 			}
 
 			e.printStackTrace();
-			throw new Exception("Error al traer los festivales");
+
+			throw new Exception("Error al traer los festivales por temporada", e);
 
 		} finally {
-			session.close();
+
+			if (session != null) {
+				session.close();
+			}
 		}
 
 		return festivales;
@@ -143,61 +164,90 @@ public class FestivalDAO {
 
 		List<Festival> festivales = null;
 
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = null;
-
 		try {
 
-			transaction = session.beginTransaction();
+			iniciarOperacion();
 
 			festivales = (List<Festival>) session
-					.createQuery("from Festival f where f.fechaInicio >= :fechaInicio and f.fechaFin <= :fechaFin")
+					.createQuery(
+							"from Festival f " + "where f.fechaInicio >= :fechaInicio " + "and f.fechaFin <= :fechaFin")
 					.setParameter("fechaInicio", fechaInicio).setParameter("fechaFin", fechaFin).getResultList();
 
-			transaction.commit();
+			tx.commit();
 
 		} catch (Exception e) {
 
-			if (transaction != null) {
-				transaction.rollback();
+			if (tx != null) {
+				tx.rollback();
 			}
 
 			e.printStackTrace();
-			throw new Exception("Error al traer los festivales");
+
+			throw new Exception("Error al traer los festivales entre fechas", e);
 
 		} finally {
-			session.close();
+
+			if (session != null) {
+				session.close();
+			}
 		}
 
 		return festivales;
 	}
 
-	public List<Festival> traerFestivalesPorCostoSuperficie(double costoSuperficie, String condicion) throws Exception {
-		List<Festival> festivales = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = null;
+	public List<Festival> traerFestivalesPorCostoSuperficie(
+            double costoSuperficie,
+            String condicion) throws Exception {
 
-		try {
+        List<Festival> festivales = null;
 
-			transaction = session.beginTransaction();
-			if("mayor".equalsIgnoreCase(condicion)){
-			festivales = (List<Festival>) session
-					.createQuery("from Festival f where :costoSuperficie <= f.costoSuperficie")
-					.setParameter("costoSuperficie", costoSuperficie).getResultList();
-			} else if("menor".equalsIgnoreCase(condicion)){
-				festivales = (List<Festival>) session
-						.createQuery("from Festival f where :costoSuperficie >= f.costoSuperficie")
-						.setParameter("costoSuperficie", costoSuperficie).getResultList();
-			}
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			e.printStackTrace();
-			throw new Exception("Error al traer los festivales");
-		} finally {
-			session.close();
-		}
-		return festivales;
-	}
+        try {
+
+            iniciarOperacion();
+
+            if ("mayor".equalsIgnoreCase(condicion)) {
+
+                festivales = (List<Festival>) session
+                        .createQuery(
+                                "from Festival f "
+                                + "where f.costoSuperficie >= :costoSuperficie")
+                        .setParameter("costoSuperficie", costoSuperficie)
+                        .getResultList();
+
+            } else if ("menor".equalsIgnoreCase(condicion)) {
+
+                festivales = (List<Festival>) session
+                        .createQuery(
+                                "from Festival f "
+                                + "where f.costoSuperficie <= :costoSuperficie")
+                        .setParameter("costoSuperficie", costoSuperficie)
+                        .getResultList();
+
+            } else {
+
+                throw new IllegalArgumentException(
+                        "La condición debe ser 'mayor' o 'menor'");
+            }
+
+            tx.commit();
+
+        } catch (Exception e) {
+
+            if (tx != null) {
+                tx.rollback();
+            }
+
+            e.printStackTrace();
+
+            throw new Exception("Error al traer los festivales por costo de superficie", e);
+
+        } finally {
+
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return festivales;
+    }
 }
