@@ -85,6 +85,7 @@ public class TestFestivalPato {
 			System.out.println(e.getMessage());
 		}
 		
+		
 		  try {
 		        double costoSuperficie = 300;
 		        String condicion = "mayor";

@@ -81,7 +81,7 @@ public class FestivalABM {
         return festivalDAO.traerFestivalesEntreFechas(fechaInicio, fechaFin);
     }
     
-    public List<Festival> traerFestivalesPorCostoSuperficie(double costoSuperficie, String condicion) throws Exception{
+    public List<Festival> traerFestivalesPorCostoSuperficie(double costoSuperficie, String condicion) throws Exception {
     	
     	if(costoSuperficie<=0) {
     		throw new IllegalArgumentException("Error: el costo de superficie es menor o igual a 0");
@@ -94,4 +94,6 @@ public class FestivalABM {
     	
     	return festivalDAO.traerFestivalesPorCostoSuperficie(costoSuperficie, condicion);
     }
+    
+    
 }
