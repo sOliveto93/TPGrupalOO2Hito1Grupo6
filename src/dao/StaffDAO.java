@@ -11,7 +11,9 @@ import org.hibernate.Transaction;
 import datos.Cajero;
 import datos.Staff;
 import datos.Cocinero;
+
 @SuppressWarnings("unchecked")
+
 public class StaffDAO {
 
     public static Session session;
@@ -237,6 +239,32 @@ public class StaffDAO {
     return lista;
     }
 
+    
+    public List<Cocinero> traerCocinerosPorEspecialidad(String especialidad){
+    	
+    	List<Cocinero> lista = new ArrayList<>();
+    	
+    	try {
+    		iniciaOperacion();
+    		
+    		List resultado = session.createQuery("from Cocinero c where c.especialidad =:especialidad").setParameter("especialidad", especialidad).getResultList();
+    		
+    		for (Object objeto : resultado) {
+    			
+    			lista.add((Cocinero) objeto);
+    		}
+    		
+    	}finally {
+    		if (session != null) {
+    			
+    			session.close();
+    		}
+    	}
+    	
+    	
+    	return lista;
+    }
+    
 
 }
 

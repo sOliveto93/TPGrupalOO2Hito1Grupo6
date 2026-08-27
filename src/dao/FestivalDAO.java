@@ -1,6 +1,9 @@
 package dao;
 
+
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -120,7 +123,7 @@ public class FestivalDAO {
 
 			festivales = (List<Festival>) session.createQuery("from Festival f where f.temporada = :temporada")
 					.setParameter("temporada", temporada).getResultList();
-			
+
 			transaction.commit();
 
 		} catch (Exception e) {
@@ -180,11 +183,11 @@ public class FestivalDAO {
 		try {
 
 			transaction = session.beginTransaction();
-			if("mayor".equalsIgnoreCase(condicion)){
-			festivales = (List<Festival>) session
-					.createQuery("from Festival f where :costoSuperficie <= f.costoSuperficie")
-					.setParameter("costoSuperficie", costoSuperficie).getResultList();
-			} else if("menor".equalsIgnoreCase(condicion)){
+			if ("mayor".equalsIgnoreCase(condicion)) {
+				festivales = (List<Festival>) session
+						.createQuery("from Festival f where :costoSuperficie <= f.costoSuperficie")
+						.setParameter("costoSuperficie", costoSuperficie).getResultList();
+			} else if ("menor".equalsIgnoreCase(condicion)) {
 				festivales = (List<Festival>) session
 						.createQuery("from Festival f where :costoSuperficie >= f.costoSuperficie")
 						.setParameter("costoSuperficie", costoSuperficie).getResultList();
@@ -199,5 +202,9 @@ public class FestivalDAO {
 			session.close();
 		}
 		return festivales;
+
 	}
+
+
+
 }

@@ -53,12 +53,13 @@ public class FestivalABM {
         if (temporada == null) {
             throw new Exception("La temporada no puede ser nula");
         }
+		temporada=temporada.toLowerCase();
 
         switch (temporada) {
-            case "Primavera":
-            case "Verano":
-            case "Otoño":
-            case "Invierno":
+            case "primavera":
+            case "verano":
+            case "otoño":
+            case "invierno":
                 break;
 
             default:
@@ -94,6 +95,5 @@ public class FestivalABM {
     	
     	return festivalDAO.traerFestivalesPorCostoSuperficie(costoSuperficie, condicion);
     }
-    
     
 }

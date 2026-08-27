@@ -40,6 +40,12 @@ public class StaffABM {
         return dao.traerCocineros();
 
     }
+    
+    public List<Cocinero> traerCocinerosPorEspecialidad(String especialidad){
+    	System.out.println("------------LISTA DE COCINEROS POR ESPECIALIDAD "+ especialidad.toUpperCase() + "--------");
+    	return dao.traerCocinerosPorEspecialidad(especialidad);
+    }
+    
 
     public List<Cajero> traerCajerosPorTurno(String turno){
         System.out.println("--------------LISTA DE CAJEROS TURNO "+turno+" ---------");
