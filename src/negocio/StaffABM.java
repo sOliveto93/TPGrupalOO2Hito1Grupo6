@@ -2,6 +2,7 @@ package negocio;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import dao.StaffDAO;
 import datos.Staff;
@@ -10,7 +11,7 @@ import datos.Cocinero;
 
 public class StaffABM {
 
-    StaffDAO dao=new StaffDAO();
+    StaffDAO dao=StaffDAO.getInstance();
 
     public StaffABM(){};
 
@@ -24,7 +25,7 @@ public class StaffABM {
         return dao.traer(id);
     }
 
-    public List<Staff> traerTodosStaff(){
+    public Set<Staff> traerTodosStaff(){
         System.out.println("-------LISTA DE TODO EL PERSONAL STAFF----------");
         return dao.traerTodos();
 
@@ -40,6 +41,12 @@ public class StaffABM {
         return dao.traerCocineros();
 
     }
+    
+    public List<Cocinero> traerCocinerosPorEspecialidad(String especialidad){
+    	System.out.println("------------LISTA DE COCINEROS POR ESPECIALIDAD "+ especialidad.toUpperCase() + "--------");
+    	return dao.traerCocinerosPorEspecialidad(especialidad);
+    }
+    
 
     public List<Cajero> traerCajerosPorTurno(String turno){
         System.out.println("--------------LISTA DE CAJEROS TURNO "+turno+" ---------");

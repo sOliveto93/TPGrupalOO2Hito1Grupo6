@@ -12,7 +12,6 @@ public class FestivalDAO {
 
 	private Session session;
 	private Transaction tx;
-
 	private static FestivalDAO instancia = null;
 
 	public FestivalDAO() {
@@ -70,7 +69,9 @@ public class FestivalDAO {
 
 			iniciarOperacion();
 
-			festival = (Festival) session.createQuery("from Festival f where f.id = :id").setParameter("id", id)
+			festival = (Festival) session
+					.createQuery("from Festival f where f.id = :id")
+					.setParameter("id", id)
 					.uniqueResult();
 
 			tx.commit();
@@ -103,7 +104,9 @@ public class FestivalDAO {
 
 			iniciarOperacion();
 
-			festivales = (List<Festival>) session.createQuery("from Festival").getResultList();
+			festivales = (List<Festival>) session
+					.createQuery("from Festival")
+					.getResultList();
 
 			tx.commit();
 
@@ -135,8 +138,10 @@ public class FestivalDAO {
 
 			iniciarOperacion();
 
-			festivales = (List<Festival>) session.createQuery("from Festival f where f.temporada = :temporada")
-					.setParameter("temporada", temporada).getResultList();
+			festivales = (List<Festival>) session
+					.createQuery("from Festival f where f.temporada = :temporada")
+					.setParameter("temporada", temporada)
+					.getResultList();
 
 			tx.commit();
 
@@ -160,7 +165,9 @@ public class FestivalDAO {
 		return festivales;
 	}
 
-	public List<Festival> traerFestivalesEntreFechas(LocalDate fechaInicio, LocalDate fechaFin) throws Exception {
+	public List<Festival> traerFestivalesEntreFechas(
+			LocalDate fechaInicio,
+			LocalDate fechaFin) throws Exception {
 
 		List<Festival> festivales = null;
 
@@ -170,8 +177,12 @@ public class FestivalDAO {
 
 			festivales = (List<Festival>) session
 					.createQuery(
-							"from Festival f " + "where f.fechaInicio >= :fechaInicio " + "and f.fechaFin <= :fechaFin")
-					.setParameter("fechaInicio", fechaInicio).setParameter("fechaFin", fechaFin).getResultList();
+							"from Festival f "
+							+ "where f.fechaInicio >= :fechaInicio "
+							+ "and f.fechaFin <= :fechaFin")
+					.setParameter("fechaInicio", fechaInicio)
+					.setParameter("fechaFin", fechaFin)
+					.getResultList();
 
 			tx.commit();
 
@@ -196,58 +207,60 @@ public class FestivalDAO {
 	}
 
 	public List<Festival> traerFestivalesPorCostoSuperficie(
-            double costoSuperficie,
-            String condicion) throws Exception {
+			double costoSuperficie,
+			String condicion) throws Exception {
 
-        List<Festival> festivales = null;
+		List<Festival> festivales = null;
 
-        try {
+		try {
 
-            iniciarOperacion();
+			iniciarOperacion();
 
-            if ("mayor".equalsIgnoreCase(condicion)) {
+			if ("mayor".equalsIgnoreCase(condicion)) {
 
-                festivales = (List<Festival>) session
-                        .createQuery(
-                                "from Festival f "
-                                + "where f.costoSuperficie >= :costoSuperficie")
-                        .setParameter("costoSuperficie", costoSuperficie)
-                        .getResultList();
+				festivales = (List<Festival>) session
+						.createQuery(
+								"from Festival f "
+								+ "where f.costoSuperficie >= :costoSuperficie")
+						.setParameter("costoSuperficie", costoSuperficie)
+						.getResultList();
 
-            } else if ("menor".equalsIgnoreCase(condicion)) {
+			} else if ("menor".equalsIgnoreCase(condicion)) {
 
-                festivales = (List<Festival>) session
-                        .createQuery(
-                                "from Festival f "
-                                + "where f.costoSuperficie <= :costoSuperficie")
-                        .setParameter("costoSuperficie", costoSuperficie)
-                        .getResultList();
+				festivales = (List<Festival>) session
+						.createQuery(
+								"from Festival f "
+								+ "where f.costoSuperficie <= :costoSuperficie")
+						.setParameter("costoSuperficie", costoSuperficie)
+						.getResultList();
 
-            } else {
+			} else {
 
-                throw new IllegalArgumentException(
-                        "La condición debe ser 'mayor' o 'menor'");
-            }
+				throw new IllegalArgumentException(
+						"La condición debe ser 'mayor' o 'menor'");
+			}
 
-            tx.commit();
+			tx.commit();
 
-        } catch (Exception e) {
+		} catch (Exception e) {
 
-            if (tx != null) {
-                tx.rollback();
-            }
+			if (tx != null) {
+				tx.rollback();
+			}
 
-            e.printStackTrace();
+			e.printStackTrace();
 
-            throw new Exception("Error al traer los festivales por costo de superficie", e);
+			throw new Exception(
+					"Error al traer los festivales por costo de superficie",
+					e);
 
-        } finally {
+		} finally {
 
-            if (session != null) {
-                session.close();
-            }
-        }
+			if (session != null) {
+				session.close();
+			}
+		}
 
-        return festivales;
-    }
+		return festivales;
+	}
 }

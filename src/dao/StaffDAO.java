@@ -2,7 +2,9 @@ package dao;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -11,10 +13,13 @@ import org.hibernate.Transaction;
 import datos.Cajero;
 import datos.Staff;
 import datos.Cocinero;
+import datos.Plato;
+
 @SuppressWarnings("unchecked")
+
 public class StaffDAO {
 
-    public static Session session;
+    public  Session session;
     private Transaction tx;
     private static StaffDAO instancia = null;
 
@@ -68,21 +73,24 @@ public class StaffDAO {
         return staff;
     }
 
-    public List<Staff> traerTodos(){
-        List<Staff> lista= new ArrayList<>();
+    public Set<Staff> traerTodos(){
+        List<Staff>lista=new ArrayList<>();
+        Set<Staff> set= new HashSet<>();
         try{
 
             iniciaOperacion();
             lista= (List<Staff>)session.createQuery("from Staff").list();
+            if(!lista.isEmpty()){
+                
+                for(Staff staff:lista){
+                    set.add(staff);
+                }
+            }
 
         }finally{
             session.close();
         }
-        return lista;
-
-
-
-        
+        return set;
 
     }
 
@@ -237,6 +245,32 @@ public class StaffDAO {
     return lista;
     }
 
+    
+    public List<Cocinero> traerCocinerosPorEspecialidad(String especialidad){
+    	
+    	List<Cocinero> lista = new ArrayList<>();
+    	
+    	try {
+    		iniciaOperacion();
+    		
+    		List resultado = session.createQuery("from Cocinero c where c.especialidad =:especialidad").setParameter("especialidad", especialidad).getResultList();
+    		
+    		for (Object objeto : resultado) {
+    			
+    			lista.add((Cocinero) objeto);
+    		}
+    		
+    	}finally {
+    		if (session != null) {
+    			
+    			session.close();
+    		}
+    	}
+    	
+    	
+    	return lista;
+    }
+    
 
 }
 
