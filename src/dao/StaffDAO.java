@@ -1,5 +1,6 @@
 package dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import org.hibernate.Transaction;
 import datos.Cajero;
 import datos.Staff;
 import datos.Cocinero;
-
+@SuppressWarnings("unchecked")
 public class StaffDAO {
 
     public static Session session;
@@ -72,7 +73,7 @@ public class StaffDAO {
         try{
 
             iniciaOperacion();
-            lista=(List<Staff>)session.createQuery("from Staff").list();
+            lista= (List<Staff>)session.createQuery("from Staff").list();
 
         }finally{
             session.close();
@@ -128,9 +129,115 @@ public class StaffDAO {
 
         return lista;
     }
+
+    public List<Cajero> traerCajerosPorTurno(String turno) {
+
+        List<Cajero> lista = new ArrayList<>();
+
+        try {
+            iniciaOperacion();
+
+            lista = (List<Cajero>) session
+                    .createQuery("from Cajero c where c.turno = :turno")
+                    .setParameter("turno", turno)
+                    .list();
+
+        } finally {
+            session.close();
+        }
+
+        return lista;
+    }
+
+    public Staff traerStaffPorDni(long dni){
+        Staff staff=null;
+        try{
+            iniciaOperacion();
+            staff=(Staff) session.createQuery("from Staff s where s.dni = :dni").setParameter("dni", dni).uniqueResult();
+        }finally{
+            session.close();
+        }
+
+        return staff;
+
+    }
+
+    public List<Staff> traerStaffPorApellido(String apellido) {
+
+        List<Staff> lista = new ArrayList<>();
+
+        try {
+            iniciaOperacion();
+
+            lista = (List<Staff>) session
+                    .createQuery("from Staff s where s.apellido = :apellido")
+                    .setParameter("apellido", apellido)
+                    .list();
+
+        } finally {
+            session.close();
+        }
+
+        return lista;
+    }
+
     
+    public List<Staff> traerStaffSueldoMayorA(double sueldo) {
+
+        List<Staff> lista = new ArrayList<>();
+
+        try {
+            iniciaOperacion();
+
+            lista = (List<Staff>) session
+                    .createQuery("from Staff s where s.sueldoBase > :sueldo")
+                    .setParameter("sueldo", sueldo)
+                    .list();
+
+        } finally {
+            session.close();
+        }
+
+        return lista;
+    }
     
- 
+    public List<Staff> traerStaffOrdenadoPorApellido() {
+
+    List<Staff> lista = new ArrayList<>();
+
+    try {
+        iniciaOperacion();
+
+        lista = (List<Staff>)session
+                .createQuery("from Staff s order by s.apellido")
+                .list();
+
+    } finally {
+        session.close();
+    }
+
+    return lista;
+    }
+
+    public List<Staff> traerStaffIngresadoDespuesDe(LocalDate fecha) {
+
+    List<Staff> lista = new ArrayList<>();
+
+    try {
+        iniciaOperacion();
+
+        lista = (List<Staff>)session
+                .createQuery("from Staff s where s.fechaIngreso > :fecha")
+                .setParameter("fecha", fecha)
+                .list();
+    } finally {
+        session.close();
+    }
+
+    return lista;
+    }
+
+
 }
 
 

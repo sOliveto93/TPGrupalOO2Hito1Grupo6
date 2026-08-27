@@ -15,6 +15,7 @@ public abstract class UnidadDeVenta {
 	
 	public UnidadDeVenta() {
 	}
+	
 	public UnidadDeVenta(String nombreComercial, Staff encargado, int superficie, int codigoChico,
 			Festival festival, Set<Plato> listaDePlatos, Set<Staff> personal) {
 		super();

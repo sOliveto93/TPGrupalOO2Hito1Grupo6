@@ -1,5 +1,6 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import dao.StaffDAO;
@@ -13,7 +14,10 @@ public class StaffABM {
 
     public StaffABM(){};
 
-    public Staff crearStaff(Staff staff){
+    public Staff crearStaff(Staff staff) throws Exception{
+        if(traerStaffPorDni(staff.getDni()) != null){
+            throw new Exception("No se puede crear staff con el mismo dni");
+        }
         return dao.crear(staff);
     }
     public Staff traerStaff(long id){
@@ -23,8 +27,6 @@ public class StaffABM {
     public List<Staff> traerTodosStaff(){
         System.out.println("-------LISTA DE TODO EL PERSONAL STAFF----------");
         return dao.traerTodos();
-
-
 
     }
 
@@ -39,6 +41,38 @@ public class StaffABM {
 
     }
 
+    public List<Cajero> traerCajerosPorTurno(String turno){
+        System.out.println("--------------LISTA DE CAJEROS TURNO "+turno+" ---------");
+        return dao.traerCajerosPorTurno(turno);
+    }
+
+    public Staff traerStaffPorDni(long dni){
+    System.out.println("---BUSCANDO A STAFF CON DNI:"+dni+" ----");
+    return dao.traerStaffPorDni(dni);
+
+    }
+
+    public List<Staff> traerStaffPorApellido(String apellido) {
+    System.out.println("\n--- STAFF CON APELLIDO: " + apellido + " ---");
+    return dao.traerStaffPorApellido(apellido);
+    }
+
+
+    public List<Staff> traerStaffSueldoMayorA(double sueldo) {
+    System.out.println("\n--- STAFF CON SUELDO MAYOR A: $" + sueldo + " ---");
+    return dao.traerStaffSueldoMayorA(sueldo);
+    }
+
+
+    public List<Staff> traerStaffOrdenadoPorApellido() {
+    System.out.println("\n--- STAFF ORDENADO POR APELLIDO ---");
+    return dao.traerStaffOrdenadoPorApellido();
+    }
+
+    public List<Staff> traerStaffIngresadoDespuesDe(LocalDate fecha) {
+    System.out.println("\n--- STAFF INGRESADO DESPUES DE: " + fecha + " ---");
+    return dao.traerStaffIngresadoDespuesDe(fecha);
+}
 }
 
 
