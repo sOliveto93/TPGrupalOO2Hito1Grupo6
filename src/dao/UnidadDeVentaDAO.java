@@ -81,21 +81,31 @@ public class UnidadDeVentaDAO {
     }
 
     public UnidadDeVenta traerPorCodigoChico(int codigoChico) {
-        UnidadDeVenta unidadVenta=null;
+        UnidadDeVenta unidadVenta = null;
         try {
             iniciaOperacion();
             unidadVenta = (UnidadDeVenta) session.createQuery("from UnidadDeVenta u where u.codigoChico=:codigoChico")
-                    .setParameter("codigoChico",codigoChico).uniqueResult();
-        } catch(HibernateException e){
+                    .setParameter("codigoChico", codigoChico).uniqueResult();
+        } catch (HibernateException e) {
             manejaExcepcion(e);
-        }finally {
+        } finally {
             session.close();
         }
         return unidadVenta;
 
     }
-        public List<UnidadDeVenta> traerPorFestival(Festival festival){
+
+    public List<UnidadDeVenta> traerPorFestival(Festival festival) {
+        List<UnidadDeVenta> lista=new ArrayList<>();
+        try {
             iniciaOperacion();
-            return session.createQuery("from UnidadDeVenta u where u.festival=:festival",UnidadDeVenta.class).setParameter("festival", festival).getResultList();
+            lista= session.createQuery("from UnidadDeVenta u where u.festival=:festival", UnidadDeVenta.class)
+                    .setParameter("festival", festival).getResultList();
+        } catch (HibernateException e) {
+            manejaExcepcion(e);
+        } finally {
+            session.close();
         }
+        return lista;
+    }
 }

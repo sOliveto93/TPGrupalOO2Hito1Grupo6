@@ -13,7 +13,6 @@ public class UnidadDeVentaABM {
     public UnidadDeVentaABM(){}
 
     public UnidadDeVenta crear(UnidadDeVenta nueva){
-        UnidadDeVenta creada;
         if(dao.traerPorCodigoChico(nueva.getCodigoChico()) == null){
           return dao.crear(nueva);  
         } 
