@@ -36,7 +36,7 @@
         <many-to-one name="encargado"
                      class="Staff"
                      column="id_encargado"
-                     not-null="true"/>
+                     not-null="false"/>
 
         <many-to-one name="festival"
                      class="Festival"
@@ -60,6 +60,13 @@
 
             <many-to-many class="Staff"
                           column="id_staff"/>
+
+        </set>
+        <set name="pedidos">
+
+            <key column="id_unidad_venta"/>
+
+            <one-to-many class="Pedido"/>
 
         </set>
 

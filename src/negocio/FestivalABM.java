@@ -3,6 +3,7 @@ package negocio;
 import java.time.LocalDate;
 import java.util.List;
 
+import Enum.Estaciones;
 import dao.FestivalDAO;
 import datos.Festival;
 
@@ -47,27 +48,9 @@ public class FestivalABM {
 
         return festivales;
     }
-    public List<Festival> traerFestivalesPorTemporada(String temporada)
+    public List<Festival> traerFestivalesPorTemporada(Estaciones temporada)
             throws Exception {
-
-        if (temporada == null) {
-            throw new Exception("La temporada no puede ser nula");
-        }
-		temporada=temporada.toLowerCase();
-
-		//esto se soluciona con un enum.. asi evitamos string magicos
-        switch (temporada) {
-            case "primavera":
-            case "verano":
-            case "otoño":
-            case "invierno":
-                break;
-
-            default:
-                throw new Exception("Temporada inválida: " + temporada);
-        }
-
-        return festivalDAO.traerFestivalesPorTemporada(temporada);
+        return festivalDAO.traerFestivalesPorTemporada(temporada.toString().toLowerCase());
     }
     public List<Festival> traerFestivalesEntreFechas(LocalDate fechaInicio, LocalDate fechaFin)
             throws Exception {

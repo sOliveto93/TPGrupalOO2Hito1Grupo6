@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -58,6 +59,7 @@ public class UnidadDeVentaDAO {
             iniciaOperacion();
             unidadVenta = (UnidadDeVenta) session.createQuery("from UnidadDeVenta u where u.id=:id")
                     .setParameter("id", id).uniqueResult();
+            //Hibernate.initialize(unidadVenta.getPersonal());
         } finally {
             session.close();
         }

@@ -7,11 +7,21 @@ public class Cajero extends Staff{
 
 	public Cajero() {
 	}
-	public Cajero(String nombre, String apellido, long dni, LocalDate fechaNacimiento, LocalDate fechaIngreso,
-			double sueldoBase, String turno) {
-		super(nombre, apellido, dni, fechaNacimiento, fechaIngreso, sueldoBase);
+	
+
+	public Cajero(String turno) {
 		this.turno = turno;
 	}
+
+
+	public Cajero(String nombre, String apellido, long dni, LocalDate fechaNacimiento, LocalDate fechaIngreso,
+			double sueldoBase, UnidadDeVenta unidadDeVenta, boolean encargado, Integer codigoUnidadDeVentaEncargada,
+			String turno) {
+		super(nombre, apellido, dni, fechaNacimiento, fechaIngreso, sueldoBase, unidadDeVenta, encargado,
+				codigoUnidadDeVentaEncargada);
+		this.turno = turno;
+	}
+
 
 	public String getTurno() {
 		return turno;

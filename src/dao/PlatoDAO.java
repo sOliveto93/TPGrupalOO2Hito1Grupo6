@@ -96,5 +96,21 @@ public class PlatoDAO {
 
         return set;
     }
+
+    public List<Plato> traerListaPlatos() {
+        List<Plato> lista = new ArrayList<>();
+        
+        try {
+            iniciaOperacion();
+            lista = session.createQuery("from Plato", Plato.class).getResultList();
+            
+        } catch (HibernateException e) {
+            manejaExcepcion(e);
+        } finally {
+            session.close();
+        }
+
+        return lista;
+    }
     
 }

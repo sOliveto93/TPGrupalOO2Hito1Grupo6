@@ -4,13 +4,14 @@ public class DetallePedido {
 	private long id;
 	private Plato plato;
 	private int cantidad;
-	
+	private Pedido pedido;
 	protected DetallePedido() {}
 	
-	public DetallePedido(Plato plato, int cantidad) {
-		super();
+	public DetallePedido(Plato plato, int cantidad,Pedido pedido) {
+		
 		this.plato = plato;
 		this.cantidad = cantidad;
+		this.pedido=pedido;
 	}
 
 	public long getId() {
@@ -40,6 +41,14 @@ public class DetallePedido {
 	@Override
 	public String toString() {
 		return "DetallePedido [id=" + id + ", plato=" + plato + ", cantidad=" + cantidad + "]";
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 	
 	

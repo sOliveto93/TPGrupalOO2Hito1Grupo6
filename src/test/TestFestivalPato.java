@@ -3,6 +3,7 @@ package test;
 import java.time.LocalDate;
 import java.util.List;
 
+import Enum.Estaciones;
 import datos.Festival;
 import negocio.FestivalABM;
 
@@ -63,7 +64,7 @@ public class TestFestivalPato {
 		
 		//Festivales por temporada
 		try {
-		List<Festival> festivalesTemporada = festivalABM.traerFestivalesPorTemporada("Verano");
+		List<Festival> festivalesTemporada = festivalABM.traerFestivalesPorTemporada(Estaciones.VERANO);
 		System.out.println("Festivales registrados por temporada: " + festivalesTemporada.size());
 		for (Festival festival : festivalesTemporada) {
 			System.out.println(festival);

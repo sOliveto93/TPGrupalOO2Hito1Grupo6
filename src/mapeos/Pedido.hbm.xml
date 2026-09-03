@@ -14,9 +14,12 @@
 
         <property name="fecha" column="fecha" type="java.time.LocalDate" not-null="true"/>
 
-        <many-to-one name="unidadDeVenta" class="UnidadDeVenta" column="id_unidad_venta" not-null="true"/>
+        <many-to-one name="unidadDeVenta" 
+        class="UnidadDeVenta" 
+        column="id_unidad_venta" 
+        not-null="true"/>
         
-        <set name="detallePedido" table="detalle_pedido">
+        <set name="detallePedido" inverse="true">
             <key column="id_pedido"/>
             <one-to-many class="DetallePedido"/>
         </set>

@@ -21,7 +21,11 @@
                   column="cantidad"
                   type="integer"
                   not-null="true"/>
-
+        <many-to-one name="pedido"
+                    class="Pedido"
+                    column="id_pedido"
+                    not-null="false"
+        />
     </class>
 
 </hibernate-mapping>

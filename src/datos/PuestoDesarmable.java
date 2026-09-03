@@ -7,12 +7,14 @@ public class PuestoDesarmable extends UnidadDeVenta {
 	private int tiempoMontaje;
 	
 	public PuestoDesarmable() {};
-	public PuestoDesarmable(String nombreComercial, Staff encargado, int superficie, int codigoChico,
-			Festival nombreFestival, Set<Plato> listaDePlatos, Set<Staff> personal, int carpas, int tiempoMontaje) {
-		super(nombreComercial, encargado, superficie, codigoChico, nombreFestival, listaDePlatos, personal);
+	
+	public PuestoDesarmable(String nombreComercial, Staff encargado, int superficie, int codigoChico, Festival festival,
+			Set<Plato> listaDePlatos, Set<Staff> personal, Set<Pedido> pedidos, int carpas, int tiempoMontaje) {
+		super(nombreComercial, encargado, superficie, codigoChico, festival, listaDePlatos, personal, pedidos);
 		this.carpas = carpas;
 		this.tiempoMontaje = tiempoMontaje;
 	}
+
 	public int getCarpas() {
 		return carpas;
 	}
