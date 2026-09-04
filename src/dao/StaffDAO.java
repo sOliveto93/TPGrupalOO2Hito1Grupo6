@@ -19,259 +19,242 @@ import datos.Plato;
 
 public class StaffDAO {
 
-    public  Session session;
-    private Transaction tx;
-    private static StaffDAO instancia = null;
+	public Session session;
+	private Transaction tx;
+	private static StaffDAO instancia = null;
 
-    public StaffDAO() {
-    }
+	public StaffDAO() {
+	}
 
-    public static StaffDAO getInstance() {
-        if (instancia == null) {
-            instancia = new StaffDAO();
-            
-        }
-        return instancia;
-    }
+	public static StaffDAO getInstance() {
+		if (instancia == null) {
+			instancia = new StaffDAO();
 
-    protected void iniciaOperacion() throws HibernateException {
-        session = HibernateUtil.getSessionFactory().openSession();
-        tx = session.beginTransaction();
-    }
+		}
+		return instancia;
+	}
 
-    protected void manejaExcepcion(HibernateException he) throws HibernateException {
-        tx.rollback();
-        throw new HibernateException("ERROR en la capa de acceso a datos", he);
-    }
+	protected void iniciaOperacion() throws HibernateException {
+		session = HibernateUtil.getSessionFactory().openSession();
+		tx = session.beginTransaction();
+	}
 
-    public Staff crear(Staff staff){
-        
-        try{
-            iniciaOperacion();
-           session.save(staff);
-           tx.commit();
-           return staff;
-        }
-        catch(HibernateException e){
-            manejaExcepcion(e);
-            return null;
-        }finally{
-            session.close();
-        }
-    }
+	protected void manejaExcepcion(HibernateException he) throws HibernateException {
+		tx.rollback();
+		throw new HibernateException("ERROR en la capa de acceso a datos", he);
+	}
 
+	public Staff crear(Staff staff) {
 
-    public Staff traer(long id){
-        Staff staff =null;
-        try{
-            iniciaOperacion();
-            staff=(Staff) session.createQuery("from Staff s where s.id=:id")
-            .setParameter("id",id).uniqueResult();
-        }finally{
-            session.close();
-        }
-        return staff;
-    }
+		try {
+			iniciaOperacion();
+			session.save(staff);
+			tx.commit();
+			return staff;
+		} catch (HibernateException e) {
+			manejaExcepcion(e);
+			return null;
+		} finally {
+			session.close();
+		}
+	}
 
-    public Set<Staff> traerTodos(){
-        List<Staff>lista=new ArrayList<>();
-        Set<Staff> set= new HashSet<>();
-        try{
+	public Staff traer(long id) {
+		Staff staff = null;
+		try {
+			iniciaOperacion();
+			staff = (Staff) session.createQuery("from Staff s where s.id=:id").setParameter("id", id).uniqueResult();
+		} finally {
+			session.close();
+		}
+		return staff;
+	}
 
-            iniciaOperacion();
-            lista= (List<Staff>)session.createQuery("from Staff").list();
-            if(!lista.isEmpty()){
-                
-                for(Staff staff:lista){
-                    set.add(staff);
-                }
-            }
+	public Set<Staff> traerTodos() {
+		List<Staff> lista = new ArrayList<>();
+		Set<Staff> set = new HashSet<>();
+		try {
 
-        }finally{
-            session.close();
-        }
-        return set;
+			iniciaOperacion();
+			lista = (List<Staff>) session.createQuery("from Staff").list();
+			if (!lista.isEmpty()) {
 
-    }
+				for (Staff staff : lista) {
+					set.add(staff);
+				}
+			}
 
-    public List<Cajero> traerCajeros() {
+		} finally {
+			session.close();
+		}
+		return set;
 
-        List<Cajero> lista = new ArrayList<>();
+	}
 
-        try {
-            iniciaOperacion();
+	public List<Cajero> traerCajeros() {
 
-            List resultado = session.createQuery("from Cajero").list();
+		List<Cajero> lista = new ArrayList<>();
 
-            for (Object objeto : resultado) {
-                lista.add((Cajero) objeto);
-            }
+		try {
+			iniciaOperacion();
 
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
+			List resultado = session.createQuery("from Cajero").list();
 
-        return lista;
-    }
+			for (Object objeto : resultado) {
+				lista.add((Cajero) objeto);
+			}
 
-    public List<Cocinero> traerCocineros() {
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
 
-        List<Cocinero> lista = new ArrayList<>();
+		return lista;
+	}
 
-        try {
-            iniciaOperacion();
+	public List<Cocinero> traerCocineros() {
 
-            List resultado = session.createQuery("from Cocinero").list();
+		List<Cocinero> lista = new ArrayList<>();
 
-            for (Object objeto : resultado) {
-                lista.add((Cocinero) objeto);
-            }
+		try {
+			iniciaOperacion();
 
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
+			List resultado = session.createQuery("from Cocinero").list();
 
-        return lista;
-    }
+			for (Object objeto : resultado) {
+				lista.add((Cocinero) objeto);
+			}
 
-    public List<Cajero> traerCajerosPorTurno(String turno) {
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
 
-        List<Cajero> lista = new ArrayList<>();
+		return lista;
+	}
 
-        try {
-            iniciaOperacion();
+	public List<Cajero> traerCajerosPorTurno(String turno) {
 
-            lista = (List<Cajero>) session
-                    .createQuery("from Cajero c where c.turno = :turno")
-                    .setParameter("turno", turno)
-                    .list();
+		List<Cajero> lista = new ArrayList<>();
 
-        } finally {
-            session.close();
-        }
+		try {
+			iniciaOperacion();
 
-        return lista;
-    }
+			lista = (List<Cajero>) session.createQuery("from Cajero c where c.turno = :turno")
+					.setParameter("turno", turno).list();
 
-    public Staff traerStaffPorDni(long dni){
-        Staff staff=null;
-        try{
-            iniciaOperacion();
-            staff=(Staff) session.createQuery("from Staff s where s.dni = :dni").setParameter("dni", dni).uniqueResult();
-        }finally{
-            session.close();
-        }
+		} finally {
+			session.close();
+		}
 
-        return staff;
+		return lista;
+	}
 
-    }
+	public Staff traerStaffPorDni(long dni) {
+		Staff staff = null;
+		try {
+			iniciaOperacion();
+			staff = (Staff) session.createQuery("from Staff s where s.dni = :dni").setParameter("dni", dni)
+					.uniqueResult();
+		} finally {
+			session.close();
+		}
 
-    public List<Staff> traerStaffPorApellido(String apellido) {
+		return staff;
 
-        List<Staff> lista = new ArrayList<>();
+	}
 
-        try {
-            iniciaOperacion();
+	public List<Staff> traerStaffPorApellido(String apellido) {
 
-            lista = (List<Staff>) session
-                    .createQuery("from Staff s where s.apellido = :apellido")
-                    .setParameter("apellido", apellido)
-                    .list();
+		List<Staff> lista = new ArrayList<>();
 
-        } finally {
-            session.close();
-        }
+		try {
+			iniciaOperacion();
 
-        return lista;
-    }
+			lista = (List<Staff>) session.createQuery("from Staff s where s.apellido = :apellido")
+					.setParameter("apellido", apellido).list();
 
-    
-    public List<Staff> traerStaffSueldoMayorA(double sueldo) {
+		} finally {
+			session.close();
+		}
 
-        List<Staff> lista = new ArrayList<>();
+		return lista;
+	}
 
-        try {
-            iniciaOperacion();
+	public List<Staff> traerStaffSueldoMayorA(double sueldo) {
 
-            lista = (List<Staff>) session
-                    .createQuery("from Staff s where s.sueldoBase > :sueldo")
-                    .setParameter("sueldo", sueldo)
-                    .list();
+		List<Staff> lista = new ArrayList<>();
 
-        } finally {
-            session.close();
-        }
+		try {
+			iniciaOperacion();
 
-        return lista;
-    }
-    
-    public List<Staff> traerStaffOrdenadoPorApellido() {
+			lista = (List<Staff>) session.createQuery("from Staff s where s.sueldoBase > :sueldo")
+					.setParameter("sueldo", sueldo).list();
 
-    List<Staff> lista = new ArrayList<>();
+		} finally {
+			session.close();
+		}
 
-    try {
-        iniciaOperacion();
+		return lista;
+	}
 
-        lista = (List<Staff>)session
-                .createQuery("from Staff s order by s.apellido")
-                .list();
+	public List<Staff> traerStaffOrdenadoPorApellido() {
 
-    } finally {
-        session.close();
-    }
+		List<Staff> lista = new ArrayList<>();
 
-    return lista;
-    }
+		try {
+			iniciaOperacion();
 
-    public List<Staff> traerStaffIngresadoDespuesDe(LocalDate fecha) {
+			lista = (List<Staff>) session.createQuery("from Staff s order by s.apellido").list();
 
-    List<Staff> lista = new ArrayList<>();
+		} finally {
+			session.close();
+		}
 
-    try {
-        iniciaOperacion();
+		return lista;
+	}
 
-        lista = (List<Staff>)session
-                .createQuery("from Staff s where s.fechaIngreso > :fecha")
-                .setParameter("fecha", fecha)
-                .list();
-    } finally {
-        session.close();
-    }
+	public List<Staff> traerStaffIngresadoDespuesDe(LocalDate fecha) {
 
-    return lista;
-    }
+		List<Staff> lista = new ArrayList<>();
 
-    
-    public List<Cocinero> traerCocinerosPorEspecialidad(String especialidad){
-    	
-    	List<Cocinero> lista = new ArrayList<>();
-    	
-    	try {
-    		iniciaOperacion();
-    		
-    		List resultado = session.createQuery("from Cocinero c where c.especialidad =:especialidad").setParameter("especialidad", especialidad).getResultList();
-    		
-    		for (Object objeto : resultado) {
-    			
-    			lista.add((Cocinero) objeto);
-    		}
-    		
-    	}finally {
-    		if (session != null) {
-    			
-    			session.close();
-    		}
-    	}
-    	
-    	
-    	return lista;
-    }
-    
+		try {
+			iniciaOperacion();
+
+			lista = (List<Staff>) session.createQuery("from Staff s where s.fechaIngreso > :fecha")
+					.setParameter("fecha", fecha).list();
+		} finally {
+			session.close();
+		}
+
+		return lista;
+	}
+
+	public List<Cocinero> traerCocinerosPorEspecialidad(String especialidad) {
+
+		List<Cocinero> lista = new ArrayList<>();
+
+		try {
+			iniciaOperacion();
+
+			List resultado = session.createQuery("from Cocinero c where c.especialidad =:especialidad")
+					.setParameter("especialidad", especialidad).getResultList();
+
+			for (Object objeto : resultado) {
+
+				lista.add((Cocinero) objeto);
+			}
+
+		} finally {
+			if (session != null) {
+
+				session.close();
+			}
+		}
+
+		return lista;
+	}
 
 }
-
-

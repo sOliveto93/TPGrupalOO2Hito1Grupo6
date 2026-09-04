@@ -7,94 +7,123 @@ import dao.FestivalDAO;
 import datos.Festival;
 
 public class FestivalABM {
-	
+
 	FestivalDAO festivalDAO = new FestivalDAO();
-	
-	public FestivalABM() {};
-	
-    
-	public long agregarFestival(Festival festival){
-		
 
-        long id = festivalDAO.agregarFestival(festival);
-        return id;
+	public FestivalABM() {
 	}
-	
-	public Festival traer(long id) {
-		Festival festival = null;
-		try {
-		festival = festivalDAO.traer(id);
-		} catch(Exception e){
-			e.getMessage();
+
+	public long agregarFestival(String nombre, String temporada, LocalDate fechaInicio, LocalDate fechaFin,
+			double costoSuperficie, double costoMontaje, double plusElectricidad, double sueldoBase) throws Exception {
+
+		if (nombre == null || nombre.isBlank()) {
+			throw new IllegalArgumentException("El nombre del festival no puede estar vacío");
 		}
-		return festival;
+
+		if (temporada == null || temporada.isBlank()) {
+			throw new IllegalArgumentException("La temporada no puede estar vacía");
+		}
+
+		if (fechaInicio == null || fechaFin == null) {
+			throw new IllegalArgumentException("Las fechas no pueden ser nulas");
+		}
+
+		if (fechaFin.isBefore(fechaInicio)) {
+			throw new IllegalArgumentException("La fecha de fin no puede ser anterior a la fecha de inicio");
+		}
+
+		Festival festival = new Festival(nombre, temporada, fechaInicio, fechaFin, costoSuperficie, costoMontaje,
+				plusElectricidad, sueldoBase);
+
+		return festivalDAO.agregarFestival(festival);
 	}
-	
-	
-    public List<Festival> traerTodos() {
 
-        List<Festival> festivales = null;
+	public Festival traer(long id) throws Exception {
 
-        try {
+		if (id <= 0) {
+			throw new IllegalArgumentException("El id debe ser mayor a cero");
+		}
 
-            festivales = festivalDAO.traerTodos();
+		return festivalDAO.traer(id);
+	}
 
-        } catch(Exception e) {
+	public List<Festival> traerTodos() throws Exception {
 
-            e.getMessage();
+		return festivalDAO.traerTodos();
+	}
 
-        }
+	public List<Festival> traerFestivalesPorTemporada(String temporada) throws Exception {
 
-        return festivales;
-    }
-    public List<Festival> traerFestivalesPorTemporada(String temporada)
-            throws Exception {
+		if (temporada == null) {
+			throw new IllegalArgumentException("La temporada no puede ser nula");
+		}
 
-        if (temporada == null) {
-            throw new Exception("La temporada no puede ser nula");
-        }
-		temporada=temporada.toLowerCase();
+		switch (temporada.toLowerCase()) {
 
-		//esto se soluciona con un enum.. asi evitamos string magicos
-        switch (temporada) {
-            case "primavera":
-            case "verano":
-            case "otoño":
-            case "invierno":
-                break;
+		case "verano":
+		case "otoño":
+		case "invierno":
+		case "primavera":
 
-            default:
-                throw new Exception("Temporada inválida: " + temporada);
-        }
+			return festivalDAO.traerFestivalesPorTemporada(temporada);
 
-        return festivalDAO.traerFestivalesPorTemporada(temporada);
-    }
-    public List<Festival> traerFestivalesEntreFechas(LocalDate fechaInicio, LocalDate fechaFin)
-            throws Exception {
-    	
-    	if(fechaInicio==null || fechaFin==null) {
-    		throw new IllegalArgumentException("Error: fecha de inicio o fin nula");
-    	}
-    	if(fechaInicio.isAfter(fechaFin))
-    	{
-    		throw new IllegalArgumentException("Error: fecha de inicio posterior a la fecha de finalizacion");
-    	}
-    	
-        return festivalDAO.traerFestivalesEntreFechas(fechaInicio, fechaFin);
-    }
-    
-    public List<Festival> traerFestivalesPorCostoSuperficie(double costoSuperficie, String condicion) throws Exception {
-    	
-    	if(costoSuperficie<=0) {
-    		throw new IllegalArgumentException("Error: el costo de superficie es menor o igual a 0");
-    	} else if (condicion==null) {
-    		throw new IllegalArgumentException("Error: la condicion no puede ser nula");
-    	} else if (!"mayor".equalsIgnoreCase(condicion)
-    	        && !"menor".equalsIgnoreCase(condicion)) {
-    	    throw new IllegalArgumentException("La condición debe ser 'mayor' o 'menor'");
-    	}
-    	
-    	return festivalDAO.traerFestivalesPorCostoSuperficie(costoSuperficie, condicion);
-    }
-    
+		default:
+
+			throw new IllegalArgumentException("Temporada inválida");
+		}
+	}
+
+	public List<Festival> traerFestivalesPorCostoSuperficie(double costoSuperficie, String condicion) throws Exception {
+
+		if (costoSuperficie < 0) {
+			throw new IllegalArgumentException("El costo de superficie no puede ser negativo");
+		}
+
+		if (!"mayor".equalsIgnoreCase(condicion) && !"menor".equalsIgnoreCase(condicion)) {
+
+			throw new IllegalArgumentException("La condición debe ser 'mayor' o 'menor'");
+		}
+
+		return festivalDAO.traerFestivalesPorCostoSuperficie(costoSuperficie, condicion);
+	}
+
+	public List<Festival> traerFestivalesEntreFechas(LocalDate fechaInicio, LocalDate fechaFin) throws Exception {
+
+		if (fechaInicio == null || fechaFin == null) {
+			throw new IllegalArgumentException("Las fechas no pueden ser nulas");
+		}
+
+		if (fechaFin.isBefore(fechaInicio)) {
+			throw new IllegalArgumentException("La fecha de fin no puede ser anterior a la fecha de inicio");
+		}
+
+		return festivalDAO.traerFestivalesEntreFechas(fechaInicio, fechaFin);
+	}
+
+	public List<Festival> traerFestivalesPorDuracion(String condicion) throws Exception {
+
+		if (condicion == null) {
+			throw new IllegalArgumentException("La condición no puede ser nula");
+		}
+
+		if (!condicion.equalsIgnoreCase("mayor")
+				&& !condicion.equalsIgnoreCase("menor")) {
+
+			throw new IllegalArgumentException(
+					"La condición debe ser 'mayor' o 'menor'"
+			);
+		}
+
+		return festivalDAO.traerFestivalesPorDuracion(condicion);
+	}
+
+	public List<Festival> traerFestivalesConFoodTruck() throws Exception {
+
+		return festivalDAO.traerFestivalesConFoodTruck();
+	}
+
+	public List<Festival> traerFestivalesConPuestoDesarmable() throws Exception {
+
+		return festivalDAO.traerFestivalesConPuestoDesarmable();
+	}
 }

@@ -3,7 +3,7 @@ package datos;
 import java.util.Set;
 
 public abstract class UnidadDeVenta {
-	
+
 	protected long id;
 	protected String nombreComercial;
 	protected Staff encargado;
@@ -12,13 +12,15 @@ public abstract class UnidadDeVenta {
 	protected Festival festival;
 	protected Set<Plato> listaDePlatos;
 	protected Set<Staff> personal;
-	
+
 	public UnidadDeVenta() {
 	}
-	
-	public UnidadDeVenta(String nombreComercial, Staff encargado, int superficie, int codigoChico,
-			Festival festival, Set<Plato> listaDePlatos, Set<Staff> personal) {
+
+	public UnidadDeVenta(String nombreComercial, Staff encargado, int superficie, int codigoChico, Festival festival,
+			Set<Plato> listaDePlatos, Set<Staff> personal) {
+
 		super();
+
 		this.nombreComercial = nombreComercial;
 		this.encargado = encargado;
 		this.superficie = superficie;
@@ -94,9 +96,8 @@ public abstract class UnidadDeVenta {
 
 	@Override
 	public String toString() {
+
 		return "UnidadDeVenta [id=" + id + ", nombreComercial=" + nombreComercial + ", encargado=" + encargado
-				+ ", superficie=" + superficie + ", codigoChico=" + codigoChico + ", festival=" + festival
-				+ ", listaDePlatos=" + listaDePlatos + ", personal=" + personal + "]";
+				+ ", superficie=" + superficie + ", codigoChico=" + codigoChico + "]";
 	}
-	
 }
