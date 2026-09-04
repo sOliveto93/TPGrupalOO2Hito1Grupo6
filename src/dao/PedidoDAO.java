@@ -1,6 +1,9 @@
 package dao;
 
 import java.time.LocalDate;
+
+import java.util.HashSet;
+
 import java.util.List;
 import java.util.Set;
 
@@ -68,36 +71,38 @@ public class PedidoDAO {
 
     public Set<Pedido> traerTodos() throws Exception {
 
-		Set<Pedido> pedidos = null;
+    	Set<Pedido> pedidos = null;
 
-		try {
+    	try {
 
-			iniciarOperacion();
+    		iniciarOperacion();
 
-			pedidos =  (Set<Pedido>)session.createQuery("from Pedido");
+    		pedidos = new HashSet<>(
+    				session.createQuery("from Pedido", Pedido.class)
+    						.getResultList()
+    		);
 
-			tx.commit();
+    		tx.commit();
 
-		} catch (Exception e) {
+    	} catch (Exception e) {
 
-			if (tx != null) {
-				tx.rollback();
-			}
+    		if (tx != null) {
+    			tx.rollback();
+    		}
 
-			e.printStackTrace();
+    		e.printStackTrace();
 
-			throw new Exception("Error al traer los Pedidos", e);
+    		throw new Exception("Error al traer los Pedidos", e);
 
-		} finally {
+    	} finally {
 
-			if (session != null) {
-				session.close();
-			}
-		}
+    		if (session != null) {
+    			session.close();
+    		}
+    	}
 
-		return pedidos;
-	}
-
+    	return pedidos;
+    }
     public List<Pedido> traerListaPedido()throws Exception {
       List<Pedido> pedidos = null;
 

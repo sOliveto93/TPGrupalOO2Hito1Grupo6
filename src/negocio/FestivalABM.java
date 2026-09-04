@@ -14,11 +14,29 @@ public class FestivalABM {
 	public FestivalABM() {};
 	
     
-	public long agregarFestival(Festival festival){
-		
+	public long agregarFestival(String nombre, String temporada, LocalDate fechaInicio, LocalDate fechaFin,
+			double costoSuperficie, double costoMontaje, double plusElectricidad, double sueldoBase) throws Exception {
 
-        long id = festivalDAO.agregarFestival(festival);
-        return id;
+		if (nombre == null || nombre.isBlank()) {
+			throw new IllegalArgumentException("El nombre del festival no puede estar vacío");
+		}
+
+		if (temporada == null || temporada.isBlank()) {
+			throw new IllegalArgumentException("La temporada no puede estar vacía");
+		}
+
+		if (fechaInicio == null || fechaFin == null) {
+			throw new IllegalArgumentException("Las fechas no pueden ser nulas");
+		}
+
+		if (fechaFin.isBefore(fechaInicio)) {
+			throw new IllegalArgumentException("La fecha de fin no puede ser anterior a la fecha de inicio");
+		}
+
+		Festival festival = new Festival(nombre, temporada, fechaInicio, fechaFin, costoSuperficie, costoMontaje,
+				plusElectricidad, sueldoBase);
+
+		return festivalDAO.agregarFestival(festival);
 	}
 	
 	public Festival traer(long id) {
@@ -79,5 +97,23 @@ public class FestivalABM {
     	
     	return festivalDAO.traerFestivalesPorCostoSuperficie(costoSuperficie, condicion);
     }
+	public List<Festival> traerFestivalesPorDuracion(String condicion) throws Exception {
+
+		if (condicion == null) {
+			throw new IllegalArgumentException("La condición no puede ser nula");
+		}
+
+		if (!condicion.equalsIgnoreCase("mayor")
+				&& !condicion.equalsIgnoreCase("menor")) {
+
+			throw new IllegalArgumentException(
+					"La condición debe ser 'mayor' o 'menor'"
+			);
+		}
+
+		return festivalDAO.traerFestivalesPorDuracion(condicion);
+	}
+
+
     
 }

@@ -17,11 +17,6 @@ public class FestivalDAO {
 	public FestivalDAO() {
 	}
 
-	protected void iniciarOperacion() {
-		session = HibernateUtil.getSessionFactory().openSession();
-		tx = session.beginTransaction();
-	}
-
 	public static FestivalDAO getInstance() {
 
 		if (instancia == null) {
@@ -30,6 +25,17 @@ public class FestivalDAO {
 
 		return instancia;
 	}
+
+	protected void iniciarOperacion() {
+		session = HibernateUtil.getSessionFactory().openSession();
+		tx = session.beginTransaction();
+	}
+	protected void manejarExcepcion(Exception e) throws Exception {
+		if (tx != null) {
+			tx.rollback();
+	}
+	}
+	
 
 	public long agregarFestival(Festival festival) {
 
@@ -263,4 +269,56 @@ public class FestivalDAO {
 
 		return festivales;
 	}
+	public List<Festival> traerFestivalesPorDuracion(
+			String condicion) throws Exception {
+
+		List<Festival> festivales = null;
+
+		try {
+
+			iniciarOperacion();
+
+			if ("mayor".equalsIgnoreCase(condicion)) {
+
+				festivales = (List<Festival>) session
+						.createQuery(
+								"from Festival f "
+								+ "order by function('datediff', "
+								+ "f.fechaFin, f.fechaInicio) desc"
+						)
+						.getResultList();
+
+			} else if ("menor".equalsIgnoreCase(condicion)) {
+
+				festivales = (List<Festival>) session
+						.createQuery(
+								"from Festival f "
+								+ "order by function('datediff', "
+								+ "f.fechaFin, f.fechaInicio) asc"
+						)
+						.getResultList();
+
+			} else {
+
+				throw new IllegalArgumentException(
+						"La condición debe ser 'mayor' o 'menor'"
+				);
+			}
+
+			tx.commit();
+
+		} catch (Exception e) {
+
+			manejarExcepcion(e);
+
+		} finally {
+
+			if (session != null) {
+				session.close();
+			}
+		}
+
+		return festivales;
+	}
+
 }

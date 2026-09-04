@@ -12,47 +12,7 @@ public class TestFestivalPato {
 	public static void main(String[] args) {
 
 		FestivalABM festivalABM = new FestivalABM();
-		Festival festival1 = new Festival("la fiesta del dulce de leche", "primavera", LocalDate.of(2026, 9, 21),
-				LocalDate.of(2026, 9, 23), 650, 300, 50, 100);
-		
-		Festival festival2 = new Festival("Oktoberfest", "primavera", LocalDate.of(2026, 1, 10),
-				LocalDate.of(2026, 1, 12), 700, 350, 60, 120);
 
-		Festival festival3 = new Festival("Harvest Festival", "otoño", LocalDate.of(2026, 4, 15),
-				LocalDate.of(2026, 4, 18), 500, 250, 40, 90);
-
-		Festival festival4 = new Festival("Festival del Chocolate", "invierno", LocalDate.of(2026, 7, 5),
-				LocalDate.of(2026, 7, 8), 800, 400, 70, 130);
-
-		Festival festival5 = new Festival("Festival Plaza", "verano", LocalDate.of(2026, 2, 14),
-				LocalDate.of(2026, 2, 17), 750, 320, 65, 110);
-
-		Festival festival6 = new Festival("Festival Vegano", "primavera", LocalDate.of(2026, 10, 10),
-				LocalDate.of(2026, 10, 12), 450, 200, 30, 95);
-
-		Festival festival7 = new Festival("Fiesta de la Parrilla", "verano", LocalDate.of(2026, 2, 20),
-				LocalDate.of(2026, 2, 23), 900, 450, 80, 150);
-
-		Festival festival8 = new Festival("Festival de Pastas", "invierno", LocalDate.of(2026, 8, 5),
-				LocalDate.of(2026, 8, 7), 600, 275, 45, 105);
-
-		Festival festival9 = new Festival("Sabores Regionales", "otoño", LocalDate.of(2026, 5, 12),
-				LocalDate.of(2026, 5, 15), 550, 225, 35, 85);
-
-		Festival festival10 = new Festival("Epicentro Gourmet", "primavera", LocalDate.of(2026, 11, 15),
-				LocalDate.of(2026, 11, 18), 1000, 500, 90, 175);
-
-		festivalABM.agregarFestival(festival1);
-		festivalABM.agregarFestival(festival2);
-		festivalABM.agregarFestival(festival3);
-		festivalABM.agregarFestival(festival4);
-		festivalABM.agregarFestival(festival5);
-		festivalABM.agregarFestival(festival6);
-		festivalABM.agregarFestival(festival7);
-		festivalABM.agregarFestival(festival8);
-		festivalABM.agregarFestival(festival9);
-		festivalABM.agregarFestival(festival10);
-		festivalABM.agregarFestival(festival1);
 
 		List<Festival> festivales = festivalABM.traerTodos();
 
@@ -118,15 +78,59 @@ public class TestFestivalPato {
 		        System.out.println("Error al consultar los festivales: "
 		                + e.getMessage());
 		    }
+		  
+			System.out.println("\n========== TODOS LOS FESTIVALES ==========");
+			for (Festival festival : festivalABM.traerTodos()) {
+				System.out.println(festival);
+			}
+
+			try {
+
+			System.out.println("\n========== COSTO SUPERFICIE MAYOR O IGUAL A 500 ==========");
+			for (Festival festival : festivalABM.traerFestivalesPorCostoSuperficie(500, "mayor")) {
+
+				System.out.println(festival);
+			}
+
+			System.out.println("\n========== COSTO SUPERFICIE MENOR O IGUAL A 500 ==========");
+			for (Festival festival : festivalABM.traerFestivalesPorCostoSuperficie(500, "menor")) {
+
+				System.out.println(festival);
+			}
+
+			System.out.println("\n========== FESTIVALES ENTRE ABRIL Y SEPTIEMBRE ==========");
+			for (Festival festival : festivalABM.traerFestivalesEntreFechas(LocalDate.of(2026, 4, 1),
+					LocalDate.of(2026, 9, 30))) {
+
+				System.out.println(festival);
+			}
+
+			System.out.println("\n========== MAYOR A MENOR DURACION ==========");
+			for (Festival festival : festivalABM.traerFestivalesPorDuracion("mayor")) {
+
+				System.out
+						.println(festival.getNombre() + " | " + festival.getFechaInicio() + " - " + festival.getFechaFin());
+			}
+
+			System.out.println("\n========== MENOR A MAYOR DURACION ==========");
+			for (Festival festival : festivalABM.traerFestivalesPorDuracion("menor")) {
+
+				System.out
+						.println(festival.getNombre() + " | " + festival.getFechaInicio() + " - " + festival.getFechaFin());
+			}			
+			System.out.println("\n========== FESTIVALES DE VERANO ==========");
+			for (Festival festival : festivalABM.traerFestivalesPorTemporada(Estaciones.VERANO)) {
+
+				System.out.println(festival);
+			}
+			
+			}catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
 		
+
 		
 }
 
-
 }
-
-
-
-		
-		
-

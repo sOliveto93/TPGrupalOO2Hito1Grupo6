@@ -26,6 +26,7 @@ public class UnidadDeVentaABM {
     public UnidadDeVenta traer(long id){
         return dao.traer(id);
     }
+    
     public UnidadDeVenta  traerPorCodigoChico(int codigo){
         UnidadDeVenta unidad=dao.traerPorCodigoChico(codigo);
         if(unidad != null){
