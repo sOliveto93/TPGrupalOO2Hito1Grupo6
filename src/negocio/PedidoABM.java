@@ -79,4 +79,31 @@ public class PedidoABM {
         return pedidos;
         
     }
+    
+    public List<Pedido> traerPedidosDeUnidadEntreFechas(UnidadDeVenta unidadDeVenta,LocalDate fechaInicio, LocalDate fechaFin){
+        List<Pedido> pedidos=new ArrayList<>();
+    try {
+        return dao.traerPedidosDeUnidadEntreFechas(unidadDeVenta, fechaInicio, fechaFin);
+    } catch (Exception e) {
+        
+        e.printStackTrace();
+    }
+    return pedidos;
+    
+}
+    
+    public double recaudacionEntreFechas(UnidadDeVenta unidadDeVenta,LocalDate fechaInicio, LocalDate fechaFin){
+    	
+    	double recaudacion = 0;   
+    	
+    try {
+        return dao.recaudacionEntreFechas(unidadDeVenta, fechaInicio, fechaFin);
+    } catch (Exception e) {
+        
+        e.printStackTrace();
+    }
+    return recaudacion;
+    
+}
+    
 }

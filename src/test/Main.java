@@ -66,7 +66,7 @@ public class Main {
 
             Cocinero cocinero = new Cocinero("patricio", "no recuerdo", 88991122, LocalDate.of(2002, 5, 13),
                     LocalDate.now(), 300, null, false, null, "sushi", 65);
-            Cajero cajero2 = new Cajero("sebas", "oliveto", 1122334455, LocalDate.of(1993, 8, 7),
+            Cajero cajero2 = new Cajero("lourdes", "crespo", 88888888, LocalDate.of(1993, 8, 7),
                     LocalDate.of(2026, 8, 23),
                     250, null, false, null, "noche");
 

@@ -1,7 +1,7 @@
 package dao;
 
 import java.time.LocalDate;
-
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import java.util.List;
@@ -12,6 +12,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import datos.DetallePedido;
 import datos.Festival;
 import datos.Pedido;
 import datos.UnidadDeVenta;
@@ -182,5 +183,75 @@ public List<Pedido> traerEntreFechas(LocalDate fechaInicio, LocalDate fechaFin) 
 
     return pedidos;
 }
+
+
+
+public List<Pedido> traerPedidosDeUnidadEntreFechas(UnidadDeVenta unidadDeVenta,LocalDate fechaInicio, LocalDate fechaFin) {
+	
+	List<Pedido> pedidos = new ArrayList<>();
+	
+	try {
+	iniciarOperacion();
+	
+	pedidos = session.createQuery("from Pedido p where p.unidadDeVenta = :unidadDeVenta  and  p.fecha >= :fechaInicio and p.fecha <= :fechaFin", Pedido.class)
+	.setParameter("unidadDeVenta",unidadDeVenta)
+	.setParameter("fechaInicio",fechaInicio)
+	.setParameter("fechaFin",fechaFin).getResultList();
+	
+	tx.commit();
+	
+	}catch(HibernateException e) {
+		manejaExcepcion(e);
+	}finally {
+		if (session != null) {
+		session.close();
+		}
+	}
+	
+	
+	return pedidos;
+	
+}
+
+public double recaudacionEntreFechas(UnidadDeVenta unidadDeVenta,LocalDate fechaInicio, LocalDate fechaFin) {
+	
+	double recaudacion = 0;
+	
+	List<Pedido> pedidos = new ArrayList<>();
+	
+	
+	try {
+		iniciarOperacion();
+		
+		pedidos = session.createQuery("from Pedido p where p.unidadDeVenta = :unidadDeVenta  and  p.fecha >= :fechaInicio and p.fecha <= :fechaFin", Pedido.class)
+		.setParameter("unidadDeVenta",unidadDeVenta)
+		.setParameter("fechaInicio",fechaInicio)
+		.setParameter("fechaFin",fechaFin).getResultList();
+	
+	
+	for(Pedido pedido : pedidos) {
+		
+		for(DetallePedido detalle : pedido.getDetallePedido()) {
+			
+			recaudacion += detalle.getCantidad() * detalle.getPlato().getPrecio();
+			
+		}
+	}
+	
+	
+     tx.commit();
+	
+	}catch(HibernateException e) {
+		manejaExcepcion(e);
+	}finally {
+		if (session != null) {
+		session.close();
+		}
+	}
+	
+	return recaudacion;
+	
+}
+
 
 }
