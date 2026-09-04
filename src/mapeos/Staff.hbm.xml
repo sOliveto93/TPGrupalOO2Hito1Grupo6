@@ -46,6 +46,21 @@
                   type="double"
                   not-null="true"/>
 
+            <many-to-one name="unidadDeVenta"
+                        class="UnidadDeVenta"
+                        column="id_de_venta"
+                        not-null="false" />
+
+                <property   name="encargado"
+                    column="encargado"
+                    type="boolean"
+                    not-null="true"
+                />
+            <property name="codigoUnidadDeVentaEncargada"
+                        column="codigo_unidad_encargada"
+                        not-null="false"
+                        type="integer" />
+
         <joined-subclass name="datos.Cajero" table="cajero">
             <key column="id"/>
             <property name="turno" column="turno" type="string" not-null="true"/>

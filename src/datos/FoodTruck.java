@@ -7,12 +7,14 @@ public class FoodTruck extends UnidadDeVenta{
 	private boolean usaElectricidad;
 	
 	public FoodTruck(){}
-	public FoodTruck(String nombreComercial, Staff encargado, int superficie, int codigoChico, Festival nombreFestival,
-			Set<Plato> listaDePlatos, Set<Staff> personal, String patente, boolean usaElectricidad) {
-		super(nombreComercial, encargado, superficie, codigoChico, nombreFestival, listaDePlatos, personal);
+	public FoodTruck(String nombreComercial, Staff encargado, int superficie, int codigoChico, Festival festival,
+			Set<Plato> listaDePlatos, Set<Staff> personal, Set<Pedido> pedidos, String patente,
+			boolean usaElectricidad) {
+		super(nombreComercial, encargado, superficie, codigoChico, festival, listaDePlatos, personal, pedidos);
 		this.patente = patente;
 		this.usaElectricidad = usaElectricidad;
 	}
+
 	public String getPatente() {
 		return patente;
 	}

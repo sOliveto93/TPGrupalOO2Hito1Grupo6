@@ -56,8 +56,8 @@ public class Pedido {
 
 
     @Override
-    public String toString() {
-        return "Pedido [fecha=" + fecha
-                + ", unidadDeVenta=" + unidadDeVenta+"]";
-    }
+public String toString() {
+    return "Pedido [id=" + id
+            + ", fecha=" + fecha + "]";
+}
 }

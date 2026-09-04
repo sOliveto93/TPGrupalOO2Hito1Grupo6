@@ -1,5 +1,6 @@
 package negocio;
 
+import java.util.List;
 import java.util.Set;
 
 import dao.PlatoDAO;
@@ -21,5 +22,8 @@ public class PlatoABM {
     }
     public Set<Plato> traerTodos(){
         return dao.traerTodos();
+    }
+    public List<Plato> traerListaPlatos(){
+        return dao.traerListaPlatos();
     }
 }

@@ -3,7 +3,7 @@ package datos;
 import java.time.LocalDate;
 
 public abstract class Staff {
-	
+
 	protected long id;
 	protected String nombre;
 	protected String apellido;
@@ -11,11 +11,15 @@ public abstract class Staff {
 	protected LocalDate fechaNacimiento;
 	protected LocalDate fechaIngreso;
 	protected double sueldoBase;
-	
+	protected UnidadDeVenta unidadDeVenta;
+	protected Integer codigoUnidadDeVentaEncargada;
+	protected boolean encargado;
+
 	public Staff() {
 	}
+
 	public Staff(String nombre, String apellido, long dni, LocalDate fechaNacimiento, LocalDate fechaIngreso,
-			double sueldoBase) {
+			double sueldoBase, UnidadDeVenta unidadDeVenta,boolean encargado,Integer codigoUnidadDeVentaEncargada) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -23,6 +27,9 @@ public abstract class Staff {
 		this.fechaNacimiento = fechaNacimiento;
 		this.fechaIngreso = fechaIngreso;
 		this.sueldoBase = sueldoBase;
+		this.unidadDeVenta = unidadDeVenta;
+		this.encargado=encargado;
+		this.codigoUnidadDeVentaEncargada=codigoUnidadDeVentaEncargada;
 	}
 
 	public long getId() {
@@ -81,11 +88,37 @@ public abstract class Staff {
 		this.sueldoBase = sueldoBase;
 	}
 
+	public void setUnidadDeVenta(UnidadDeVenta unidadDeVenta) {
+		this.unidadDeVenta = unidadDeVenta;
+	}
+
+	public UnidadDeVenta getUnidadDeVenta() {
+		return this.unidadDeVenta;
+	}
+
+	public Integer getCodigoUnidadDeVentaEncargada() {
+		return codigoUnidadDeVentaEncargada;
+	}
+
+	public void setCodigoUnidadDeVentaEncargada(Integer codigoUnidadDeVentaEncargada) {
+		this.codigoUnidadDeVentaEncargada = codigoUnidadDeVentaEncargada;
+	}
+
+	
+
 	@Override
 	public String toString() {
 		return "Staff [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni
 				+ ", fechaNacimiento=" + fechaNacimiento + ", fechaIngreso=" + fechaIngreso + ", sueldoBase="
 				+ sueldoBase + "]";
 	}
-	
+
+	public boolean isEncargado() {
+		return encargado;
+	}
+
+	public void setEncargado(boolean encargado) {
+		this.encargado = encargado;
+	}
+
 }

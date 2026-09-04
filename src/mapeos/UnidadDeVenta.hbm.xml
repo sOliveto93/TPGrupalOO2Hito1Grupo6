@@ -33,28 +33,18 @@
                   type="integer"
                   not-null="true"/>
 
-
         <many-to-one name="encargado"
                      class="Staff"
                      column="id_encargado"
-                     not-null="true"
-                     lazy="proxy"
-                     fetch="select"/>
-
-
+                     not-null="false"/>
 
         <many-to-one name="festival"
                      class="Festival"
                      column="id_festival"
-                     not-null="true"
-                     lazy="proxy"
-                     fetch="select"/>
-
+                     not-null="true"/>
 
         <set name="listaDePlatos"
-             table="unidad_venta_plato"
-             lazy="true"
-             fetch="select">
+             table="unidad_venta_plato">
 
             <key column="id_unidad_venta"/>
 
@@ -63,11 +53,8 @@
 
         </set>
 
-
         <set name="personal"
-             table="unidad_venta_staff"
-             lazy="true"
-             fetch="select">
+             table="unidad_venta_staff">
 
             <key column="id_unidad_venta"/>
 
@@ -75,41 +62,23 @@
                           column="id_staff"/>
 
         </set>
+        <set name="pedidos">
 
+            <key column="id_unidad_venta"/>
 
-        <joined-subclass name="datos.FoodTruck"
-                         table="food_truck">
+            <one-to-many class="Pedido"/>
 
+        </set>
+
+         <joined-subclass name="datos.FoodTruck" table="food_truck">
             <key column="id"/>
-
-            <property name="patente"
-                      column="patente"
-                      type="string"
-                      not-null="true"/>
-
-            <property name="usaElectricidad"
-                      column="usa_electricidad"
-                      type="boolean"
-                      not-null="true"/>
-
+            <property name="patente" column="patente" type="string" not-null="true"/>
+            <property name="usaElectricidad" column="usa_electricidad" type="boolean" not-null="true"/>
         </joined-subclass>
-
-
-        <joined-subclass name="datos.PuestoDesarmable"
-                         table="puesto_desarmable">
-
+        <joined-subclass name="datos.PuestoDesarmable" table="puesto_desarmable">
             <key column="id"/>
-
-            <property name="carpas"
-                      column="carpas"
-                      type="int"
-                      not-null="true"/>
-
-            <property name="tiempoMontaje"
-                      column="tiempo_montaje"
-                      type="int"
-                      not-null="true"/>
-
+            <property name="carpas" column="carpas" type="int" not-null="true"/>
+            <property name="tiempoMontaje" column="tiempo_montaje" type="int" not-null="true"/>
         </joined-subclass>
 
     </class>

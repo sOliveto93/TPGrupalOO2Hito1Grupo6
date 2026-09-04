@@ -11,104 +11,75 @@ import datos.Cocinero;
 
 public class StaffABM {
 
-	StaffDAO dao = StaffDAO.getInstance();
+    StaffDAO dao=StaffDAO.getInstance();
 
-	public StaffABM() {
-	};
+    public StaffABM(){};
 
-	public Staff crearStaff(Staff staff) throws Exception {
+    public Staff crearStaff(Staff staff) throws Exception{
+        if(traerStaffPorDni(staff.getDni()) != null){
+            throw new Exception("No se puede crear staff con el mismo dni");
+        }
+        return dao.crear(staff);
+    }
+    public Staff traerStaff(long id){
+        return dao.traer(id);
+    }
 
-		if (traerStaffPorDni(staff.getDni()) != null) {
-			throw new Exception("No se puede crear staff con el mismo dni");
-		}
+    public Set<Staff> traerTodosStaff(){
+        System.out.println("-------LISTA DE TODO EL PERSONAL STAFF----------");
+        return dao.traerTodos();
 
-		return dao.crear(staff);
-	}
+    }
 
-	public Staff crearCajero(String nombre, String apellido, long dni, LocalDate fechaNacimiento,
-			LocalDate fechaIngreso, double sueldoBase, String turno) throws Exception {
+    public List<Cajero> traerTodosCajeros(){
+        System.out.println("------------LISTA DE TODOS LOS CAJEROS---------------\n");
+        return dao.traerCajeros();
+    }
 
-		if (traerStaffPorDni(dni) != null) {
-			throw new Exception("No se puede crear staff con el mismo dni");
-		}
+    public List<Cocinero> traerTodosCocineros(){
+        System.out.println("------------LISTA DE TODOS LOS COCINEROS--------");
+        return dao.traerCocineros();
 
-		Cajero cajero = new Cajero(nombre, apellido, dni, fechaNacimiento, fechaIngreso, sueldoBase, turno);
+    }
+    
+    public List<Cocinero> traerCocinerosPorEspecialidad(String especialidad){
+    	System.out.println("------------LISTA DE COCINEROS POR ESPECIALIDAD "+ especialidad.toUpperCase() + "--------");
+    	return dao.traerCocinerosPorEspecialidad(especialidad);
+    }
+    
 
-		return dao.crear(cajero);
-	}
+    public List<Cajero> traerCajerosPorTurno(String turno){
+        System.out.println("--------------LISTA DE CAJEROS TURNO "+turno+" ---------");
+        return dao.traerCajerosPorTurno(turno);
+    }
 
-	public Staff crearCocinero(String nombre, String apellido, long dni, LocalDate fechaNacimiento,
-			LocalDate fechaIngreso, double sueldoBase, String especialidad, double plusCategoria) throws Exception {
+    public Staff traerStaffPorDni(long dni){
+    System.out.println("---BUSCANDO A STAFF CON DNI:"+dni+" ----");
+    return dao.traerStaffPorDni(dni);
 
-		if (traerStaffPorDni(dni) != null) {
-			throw new Exception("No se puede crear staff con el mismo dni");
-		}
+    }
 
-		Cocinero cocinero = new Cocinero(nombre, apellido, dni, fechaNacimiento, fechaIngreso, sueldoBase, especialidad,
-				plusCategoria);
+    public List<Staff> traerStaffPorApellido(String apellido) {
+    System.out.println("\n--- STAFF CON APELLIDO: " + apellido + " ---");
+    return dao.traerStaffPorApellido(apellido);
+    }
 
-		return dao.crear(cocinero);
-	}
 
-	public Staff traerStaff(long id) {
-		return dao.traer(id);
-	}
+    public List<Staff> traerStaffSueldoMayorA(double sueldo) {
+    System.out.println("\n--- STAFF CON SUELDO MAYOR A: $" + sueldo + " ---");
+    return dao.traerStaffSueldoMayorA(sueldo);
+    }
 
-	public Set<Staff> traerTodosStaff() {
-		System.out.println("-------LISTA DE TODO EL PERSONAL STAFF----------");
-		return dao.traerTodos();
-	}
 
-	public List<Cajero> traerTodosCajeros() {
-		System.out.println("------------LISTA DE TODOS LOS CAJEROS---------------\n");
-		return dao.traerCajeros();
-	}
+    public List<Staff> traerStaffOrdenadoPorApellido() {
+    System.out.println("\n--- STAFF ORDENADO POR APELLIDO ---");
+    return dao.traerStaffOrdenadoPorApellido();
+    }
 
-	public List<Cocinero> traerTodosCocineros() {
-		System.out.println("------------LISTA DE TODOS LOS COCINEROS--------");
-		return dao.traerCocineros();
-	}
-
-	public List<Cocinero> traerCocinerosPorEspecialidad(String especialidad) {
-		System.out
-				.println("------------LISTA DE COCINEROS POR ESPECIALIDAD " + especialidad.toUpperCase() + "--------");
-
-		return dao.traerCocinerosPorEspecialidad(especialidad);
-	}
-
-	public List<Cajero> traerCajerosPorTurno(String turno) {
-		System.out.println("--------------LISTA DE CAJEROS TURNO " + turno + " ---------");
-
-		return dao.traerCajerosPorTurno(turno);
-	}
-
-	public Staff traerStaffPorDni(long dni) {
-		System.out.println("---BUSCANDO A STAFF CON DNI:" + dni + " ----");
-
-		return dao.traerStaffPorDni(dni);
-	}
-
-	public List<Staff> traerStaffPorApellido(String apellido) {
-		System.out.println("\n--- STAFF CON APELLIDO: " + apellido + " ---");
-
-		return dao.traerStaffPorApellido(apellido);
-	}
-
-	public List<Staff> traerStaffSueldoMayorA(double sueldo) {
-		System.out.println("\n--- STAFF CON SUELDO MAYOR A: $" + sueldo + " ---");
-
-		return dao.traerStaffSueldoMayorA(sueldo);
-	}
-
-	public List<Staff> traerStaffOrdenadoPorApellido() {
-		System.out.println("\n--- STAFF ORDENADO POR APELLIDO ---");
-
-		return dao.traerStaffOrdenadoPorApellido();
-	}
-
-	public List<Staff> traerStaffIngresadoDespuesDe(LocalDate fecha) {
-		System.out.println("\n--- STAFF INGRESADO DESPUES DE: " + fecha + " ---");
-
-		return dao.traerStaffIngresadoDespuesDe(fecha);
-	}
+    public List<Staff> traerStaffIngresadoDespuesDe(LocalDate fecha) {
+    System.out.println("\n--- STAFF INGRESADO DESPUES DE: " + fecha + " ---");
+    return dao.traerStaffIngresadoDespuesDe(fecha);
 }
+}
+
+

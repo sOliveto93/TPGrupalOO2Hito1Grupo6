@@ -8,35 +8,20 @@
 
     <class name="Pedido" table="pedido">
 
-        <id name="id"
-            column="id_pedido"
-            type="long">
-
+        <id name="id" column="id_pedido" type="long">
             <generator class="identity"/>
-
         </id>
 
-        <property name="fecha"
-                  column="fecha"
-                  type="java.time.LocalDate"
-                  not-null="true"/>
+        <property name="fecha" column="fecha" type="java.time.LocalDate" not-null="true"/>
 
-        <many-to-one name="unidadDeVenta"
-                     class="UnidadDeVenta"
-                     column="id_unidad_venta"
-                     not-null="true"
-                     lazy="proxy"
-                     fetch="select"/>
-
-        <set name="detallePedido"
-             table="detalle_pedido"
-             lazy="true"
-             fetch="select">
-
+        <many-to-one name="unidadDeVenta" 
+        class="UnidadDeVenta" 
+        column="id_unidad_venta" 
+        not-null="true"/>
+        
+        <set name="detallePedido" inverse="true">
             <key column="id_pedido"/>
-
             <one-to-many class="DetallePedido"/>
-
         </set>
 
     </class>

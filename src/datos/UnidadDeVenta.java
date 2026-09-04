@@ -3,7 +3,7 @@ package datos;
 import java.util.Set;
 
 public abstract class UnidadDeVenta {
-
+	
 	protected long id;
 	protected String nombreComercial;
 	protected Staff encargado;
@@ -12,15 +12,14 @@ public abstract class UnidadDeVenta {
 	protected Festival festival;
 	protected Set<Plato> listaDePlatos;
 	protected Set<Staff> personal;
+	protected Set<Pedido> pedidos;
 
 	public UnidadDeVenta() {
 	}
-
-	public UnidadDeVenta(String nombreComercial, Staff encargado, int superficie, int codigoChico, Festival festival,
-			Set<Plato> listaDePlatos, Set<Staff> personal) {
-
+	
+	public UnidadDeVenta(String nombreComercial, Staff encargado, int superficie, int codigoChico,
+			Festival festival, Set<Plato> listaDePlatos, Set<Staff> personal,Set<Pedido> pedidos) {
 		super();
-
 		this.nombreComercial = nombreComercial;
 		this.encargado = encargado;
 		this.superficie = superficie;
@@ -28,6 +27,7 @@ public abstract class UnidadDeVenta {
 		this.festival = festival;
 		this.listaDePlatos = listaDePlatos;
 		this.personal = personal;
+		this.pedidos=pedidos;
 	}
 
 	public String getNombreComercial() {
@@ -96,8 +96,17 @@ public abstract class UnidadDeVenta {
 
 	@Override
 	public String toString() {
-
 		return "UnidadDeVenta [id=" + id + ", nombreComercial=" + nombreComercial + ", encargado=" + encargado
-				+ ", superficie=" + superficie + ", codigoChico=" + codigoChico + "]";
+				+ ", superficie=" + superficie + ", codigoChico=" + codigoChico + ", festival=" + festival
+				+ ", listaDePlatos=" + listaDePlatos + ", personal=" + personal + "]";
 	}
+
+	public Set<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(Set<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
 }

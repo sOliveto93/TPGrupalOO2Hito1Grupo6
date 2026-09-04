@@ -1,10 +1,9 @@
 package datos;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 public class Festival {
-
+	
 	private long id;
 	private String nombre;
 	private String temporada;
@@ -14,11 +13,9 @@ public class Festival {
 	private double costoMontaje;
 	private double plusElectricidad;
 	private double sueldoBase;
-	private Set<UnidadDeVenta> unidadesDeVenta;
-
+	
 	protected Festival() {
 	}
-
 	public Festival(String nombre, String temporada, LocalDate fechaInicio, LocalDate fechaFin, double costoSuperficie,
 			double costoMontaje, double plusElectricidad, double sueldoBase) {
 		super();
@@ -104,34 +101,13 @@ public class Festival {
 		this.sueldoBase = sueldoBase;
 	}
 
-	public Set<UnidadDeVenta> getUnidadesDeVenta() {
-		return unidadesDeVenta;
-	}
-
-	public void setUnidadesDeVenta(Set<UnidadDeVenta> unidadesDeVenta) {
-
-		this.unidadesDeVenta = unidadesDeVenta;
-	}
-
-	public void agregarUnidadDeVenta(UnidadDeVenta unidad) {
-
-		unidadesDeVenta.add(unidad);
-
-		unidad.setFestival(this);
-	}
-
-	public void eliminarUnidadDeVenta(UnidadDeVenta unidad) {
-
-		unidadesDeVenta.remove(unidad);
-
-		unidad.setFestival(null);
-	}
-
 	@Override
 	public String toString() {
 		return "Festival [id=" + id + ", nombre=" + nombre + ", temporada=" + temporada + ", fechaInicio=" + fechaInicio
 				+ ", fechaFin=" + fechaFin + ", costoSuperficie=" + costoSuperficie + ", costoMontaje=" + costoMontaje
 				+ ", plusElectricidad=" + plusElectricidad + ", sueldoBase=" + sueldoBase + "]";
 	}
-
+	
+	
+	
 }

@@ -1,69 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="datos">
 
-	<class name="Festival" table="festival">
+    <class name="Festival" table="festival">
 
-		<id name="id"
-			column="id_festival"
-			type="long">
+        <id name="id"
+            column="id_festival"
+            type="long">
 
-			<generator class="identity" />
+            <generator class="identity"/>
 
-		</id>
+        </id>
 
-		<property name="nombre"
-			column="nombre"
-			type="string"
-			not-null="true" />
+        <property name="nombre"
+                  column="nombre"
+                  type="string"
+                  not-null="true"/>
 
-		<property name="temporada"
-			column="temporada"
-			type="string"
-			not-null="true" />
+        <property name="temporada"
+                  column="temporada"
+                  type="string"
+                  not-null="true"/>
 
-		<property name="fechaInicio"
-			column="fecha_inicio"
-			type="java.time.LocalDate"
-			not-null="true" />
+        <property name="fechaInicio"
+                  column="fecha_inicio"
+                  type="java.time.LocalDate"
+                  not-null="true"/>
 
-		<property name="fechaFin"
-			column="fecha_fin"
-			type="java.time.LocalDate"
-			not-null="true" />
+        <property name="fechaFin"
+                  column="fecha_fin"
+                  type="java.time.LocalDate"
+                  not-null="true"/>
 
-		<property name="costoSuperficie"
-			column="costo_superficie"
-			type="double"
-			not-null="true" />
+        <property name="costoSuperficie"
+                  column="costo_superficie"
+                  type="double"
+                  not-null="true"/>
 
-		<property name="costoMontaje"
-			column="costo_montaje"
-			type="double"
-			not-null="true" />
+        <property name="costoMontaje"
+                  column="costo_montaje"
+                  type="double"
+                  not-null="true"/>
 
-		<property name="plusElectricidad"
-			column="plus_electricidad"
-			type="double"
-			not-null="true" />
+        <property name="plusElectricidad"
+                  column="plus_electricidad"
+                  type="double"
+                  not-null="true"/>
 
-		<property name="sueldoBase"
-			column="sueldo_base"
-			type="double"
-			not-null="true" />
+        <property name="sueldoBase"
+                  column="sueldo_base"
+                  type="double"
+                  not-null="true"/>
 
-		<set name="unidadesDeVenta"
-			inverse="true"
-			lazy="true"
-			fetch="select">
-
-			<key column="id_festival" />
-
-			<one-to-many class="UnidadDeVenta" />
-
-		</set>
-
-	</class>
+    </class>
 
 </hibernate-mapping>
