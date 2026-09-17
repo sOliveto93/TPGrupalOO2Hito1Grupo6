@@ -215,31 +215,27 @@ public List<Pedido> traerPedidosDeUnidadEntreFechas(UnidadDeVenta unidadDeVenta,
 
 public double recaudacionEntreFechas(UnidadDeVenta unidadDeVenta,LocalDate fechaInicio, LocalDate fechaFin) {
 	
-	double recaudacion = 0;
-	
-	List<Pedido> pedidos = new ArrayList<>();
-	
+	double recaudacion = 0;	
 	
 	try {
 		iniciarOperacion();
 		
-		pedidos = session.createQuery("from Pedido p where p.unidadDeVenta = :unidadDeVenta  and  p.fecha >= :fechaInicio and p.fecha <= :fechaFin", Pedido.class)
-		.setParameter("unidadDeVenta",unidadDeVenta)
-		.setParameter("fechaInicio",fechaInicio)
-		.setParameter("fechaFin",fechaFin).getResultList();
+		Double resultado = session.createQuery(
+				"select coalesce(sum(d.cantidad * d.plato.precio), 0.0) " +
+				"from Pedido p join p.detallePedido d " +
+				"where p.unidadDeVenta = :unidadDeVenta " +
+				"and p.fecha >= :fechaInicio and p.fecha <= :fechaFin",
+				Double.class)
+			.setParameter("unidadDeVenta", unidadDeVenta)
+			.setParameter("fechaInicio", fechaInicio)
+			.setParameter("fechaFin", fechaFin)
+			.uniqueResult();
+
+	
+	    recaudacion = resultado;
 	
 	
-	for(Pedido pedido : pedidos) {
-		
-		for(DetallePedido detalle : pedido.getDetallePedido()) {
-			
-			recaudacion += detalle.getCantidad() * detalle.getPlato().getPrecio();
-			
-		}
-	}
-	
-	
-     tx.commit();
+        tx.commit();
 	
 	}catch(HibernateException e) {
 		manejaExcepcion(e);
@@ -250,6 +246,43 @@ public double recaudacionEntreFechas(UnidadDeVenta unidadDeVenta,LocalDate fecha
 	}
 	
 	return recaudacion;
+	
+}
+
+
+public double gananciaEntreFechas(UnidadDeVenta unidadDeVenta,LocalDate fechaInicio, LocalDate fechaFin) {
+	
+	double ganancia = 0;	
+	
+	try {
+		iniciarOperacion();
+		
+		Double resultado = session.createQuery(
+				"select coalesce(sum(d.cantidad * (d.plato.precio - d.plato.costo)), 0.0) " +
+				"from Pedido p join p.detallePedido d " +
+				"where p.unidadDeVenta = :unidadDeVenta " +
+				"and p.fecha >= :fechaInicio and p.fecha <= :fechaFin",
+				Double.class)
+			.setParameter("unidadDeVenta", unidadDeVenta)
+			.setParameter("fechaInicio", fechaInicio)
+			.setParameter("fechaFin", fechaFin)
+			.uniqueResult();
+
+	
+	    ganancia = resultado;
+	
+	
+        tx.commit();
+	
+	}catch(HibernateException e) {
+		manejaExcepcion(e);
+	}finally {
+		if (session != null) {
+		session.close();
+		}
+	}
+	
+	return ganancia;
 	
 }
 

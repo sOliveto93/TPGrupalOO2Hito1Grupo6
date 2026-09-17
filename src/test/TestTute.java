@@ -52,8 +52,8 @@ public class TestTute {
 		UnidadDeVentaDAO unidadDAO = new UnidadDeVentaDAO();
 		UnidadDeVenta unidad = unidadDAO.traer(1);
 		
-		DetallePedido detalle1 = new DetallePedido(platos.get(0), 1, null);
-		DetallePedido detalle2 = new DetallePedido(platos.get(1), 2, null);
+		DetallePedido detalle1 = new DetallePedido(platos.get(0), 1, null); // hamburguesa 1 × $7.000 = $7.000
+		DetallePedido detalle2 = new DetallePedido(platos.get(1), 2, null); // pizza napolitana 2 × $8.500 = $17.000
 		
 		Set<DetallePedido> detalles1 = new HashSet<>();
 		detalles1.add(detalle1);
@@ -91,6 +91,14 @@ public class TestTute {
 		double recaudacion = pedidoABM.recaudacionEntreFechas(unidad, LocalDate.of(2026, 9, 1), LocalDate.of(2026, 9, 6));
 		
 		System.out.println("Recaudacion: $" + recaudacion);
+		
+		double ganancia = pedidoABM.gananciaEntreFechas(
+		        unidad,
+		        LocalDate.of(2026, 9, 1),
+		        LocalDate.of(2026, 9, 6)
+		);
+
+		System.out.println("Ganancia: $" + ganancia);
  
 	}
 

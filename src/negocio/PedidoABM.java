@@ -106,4 +106,18 @@ public class PedidoABM {
     
 }
     
+    public double gananciaEntreFechas(UnidadDeVenta unidadDeVenta,LocalDate fechaInicio, LocalDate fechaFin) {
+    	
+    	 double ganancia = 0;
+
+    	    try {
+    	        return dao.gananciaEntreFechas(unidadDeVenta, fechaInicio, fechaFin);
+
+    	    } catch (Exception e) {
+    	        e.printStackTrace();
+    	    }
+
+    	    return ganancia;
+    }
+    
 }
